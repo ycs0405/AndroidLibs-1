@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!--the style of thr spotsdislog-->
+  <style name="DefaultSpotsDialog" parent="android:Theme.DeviceDefault.Dialog.NoActionBar">
+    <item name="DialogTitleAppearance">@android:style/TextAppearance.Small</item>
+    <item name="DialogTitleText">加载中...</item>
+    <item name="DialogSpotCount">5</item>
+  </style>
+
+  <!--style for ProgressDialog-->
+  <style name="progress_dialog" parent="android:style/Theme.Dialog">
+    <item name="android:windowFrame">@null</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowBackground">@drawable/shape_progress_dialog_bg</item>
+    <item name="android:windowIsFloating">true</item>
+    <item name="android:windowContentOverlay">@null</item>
+  </style>
+
+  <!--style for BottomDialog-->
+  <style name="BottomDialog" parent="android:Theme.DeviceDefault.Dialog">
+    <item name="android:windowTitleStyle">@null</item>
+    <item name="android:windowBackground">@color/transparent</item>
+    <item name="android:colorBackgroundCacheHint">@null</item>
+    <item name="android:windowAnimationStyle">@style/BottomDialogAnim</item>
+    <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+  </style>
+
+  <style name="BottomDialogAnim" parent="android:Animation">
+    <item name="android:windowEnterAnimation">@anim/slide_in_from_bottom</item>
+    <item name="android:windowExitAnimation">@anim/slide_out_to_bottom</item>
+  </style>
+
+  <style name="Theme_Scrollbar">
+    <item name="android:scrollbarTrackVertical">@drawable/scrollbar_vertical_track</item>
+    <item name="android:scrollbarThumbVertical">@drawable/scrollbar_vertical_thumb</item>
+    <item name="android:scrollbarSize">4dip</item>
+  </style>
+</resources>

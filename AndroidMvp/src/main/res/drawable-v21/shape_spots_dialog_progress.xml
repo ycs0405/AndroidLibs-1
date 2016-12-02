@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+  <!--api 21 才能找到这个属性的值-->
+  <solid android:color="?attr/DialogSpotColor"/>
+</shape>

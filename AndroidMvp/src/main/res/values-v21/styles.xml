@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <style name="DefaultSpotsDialog" parent="android:Theme.DeviceDefault.Dialog.NoActionBar">
+    <item name="DialogTitleAppearance">@android:style/TextAppearance.Small</item>
+    <item name="DialogTitleText">加载中...</item>
+    <item name="DialogSpotColor">@color/deep_orange</item>
+    <item name="DialogSpotCount">5</item>
+  </style>
+</resources>

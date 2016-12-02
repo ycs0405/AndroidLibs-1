@@ -1,0 +1,271 @@
+package me.koterwong.androidpaylib.wxpay;
+
+import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
+import android.util.Xml;
+
+import com.tencent.mm.sdk.modelpay.PayReq;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.xmlpull.v1.XmlPullParser;
+
+import java.io.StringReader;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+public class WXUtils {
+
+    private static WXUtils sWXUtils;
+
+    public static WXUtils getWXUtils() {
+        if (sWXUtils == null) {
+            sWXUtils = new WXUtils();
+        }
+        return sWXUtils;
+    }
+
+    public WXUtils() {
+        sWXUtils = this;
+    }
+
+    private WxCallBack mWxCallBack;
+
+    public interface WxCallBack {
+        //code = 0 为成功，参考微信App支付文档
+        void payResponse(int code);
+    }
+
+    /**
+     * 生成签名
+     */
+    public static String genPackageSign(List<NameValuePair> params) {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < params.size(); i++) {
+            sb.append(params.get(i).getName());
+            sb.append('=');
+            sb.append(params.get(i).getValue());
+            sb.append('&');
+        }
+        sb.append("key=");
+        sb.append(Constants.WX_API_KEUSTORE);
+
+        String packageSign = MD5.getMessageDigest(sb.toString().getBytes()).toUpperCase();
+        Log.e("orion", packageSign);
+        return packageSign;
+    }
+
+    public static String genProductArgs(String orderId, String goods_name, String fee, String back_url) {
+        StringBuffer xml = new StringBuffer();
+        try {
+            String nonceStr = genNonceStr();
+            xml.append("</xml>");
+            List<NameValuePair> packageParams = new LinkedList<NameValuePair>();
+            packageParams.add(new BasicNameValuePair("appid", Constants.WX_APPID));
+            packageParams.add(new BasicNameValuePair("body",goods_name));//商品名中文冲突
+            packageParams.add(new BasicNameValuePair("mch_id", Constants.WX_SHOP_NUM));
+            packageParams.add(new BasicNameValuePair("nonce_str", nonceStr));
+            packageParams.add(new BasicNameValuePair("notify_url", back_url));
+            packageParams.add(new BasicNameValuePair("out_trade_no", orderId));
+            packageParams.add(new BasicNameValuePair("spbill_create_ip", "127.0.0.1"));
+            packageParams.add(new BasicNameValuePair("total_fee", String.valueOf((int)(Double.valueOf(fee) * 100))));
+            packageParams.add(new BasicNameValuePair("trade_type", "APP"));
+
+
+            String sign = genPackageSign(packageParams);
+            packageParams.add(new BasicNameValuePair("sign", sign));
+
+
+            String xmlstring = toXml(packageParams);
+
+            return xmlstring;
+
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static String genNonceStr() {
+        Random random = new Random();
+        return MD5.getMessageDigest(String.valueOf(random.nextInt(10000)).getBytes());
+    }
+
+    public static String toXml(List<NameValuePair> params) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<xml>");
+        for (int i = 0; i < params.size(); i++) {
+            sb.append("<" + params.get(i).getName() + ">");
+
+
+            sb.append(params.get(i).getValue());
+            sb.append("</" + params.get(i).getName() + ">");
+        }
+        sb.append("</xml>");
+
+        Log.e("orion", sb.toString());
+        return sb.toString();
+    }
+
+    private static String genOutTradNo() {
+        Random random = new Random();
+        return MD5.getMessageDigest(String.valueOf(random.nextInt(10000)).getBytes());
+    }
+
+    public Map<String, String> decodeXml(String content) {
+
+        try {
+            Map<String, String> xml = new HashMap<String, String>();
+            XmlPullParser parser = Xml.newPullParser();
+            parser.setInput(new StringReader(content));
+            int event = parser.getEventType();
+            while (event != XmlPullParser.END_DOCUMENT) {
+                String nodeName = parser.getName();
+                switch (event) {
+                    case XmlPullParser.START_DOCUMENT:
+                        break;
+                    case XmlPullParser.START_TAG:
+                        if ("xml".equals(nodeName) == false) {
+                            //实例化student对象
+                            xml.put(nodeName, parser.nextText());
+                        }
+                        break;
+                    case XmlPullParser.END_TAG:
+                        break;
+                }
+                event = parser.next();
+            }
+            return xml;
+        } catch (Exception e) {
+            Log.e("orion", e.toString());
+        }
+        return null;
+
+    }
+
+    private class GetPrepayIdTask extends AsyncTask<Void, Void, Map<String, String>> {
+        private String order_id;
+        private Context context;
+        private String goods_name;
+        private String back_url;
+        private String fee;
+
+        GetPrepayIdTask(Context context, String order_id, String goods_name, String fee, String back_url) {
+            this.context = context;
+            this.order_id = order_id;
+            this.goods_name = goods_name;
+            this.back_url = back_url;
+            this.fee = fee;
+        }
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, String> result) {
+            genPayReq(context, result.get("prepay_id"));
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+        }
+
+        @Override
+        protected Map<String, String> doInBackground(Void... params) {
+
+            String url = String.format("https://api.mch.weixin.qq.com/pay/unifiedorder");
+            String entity = genProductArgs(order_id, goods_name, fee, back_url);
+
+            Log.e("orion", entity);
+
+            byte[] buf = Util.httpPost(url, entity);
+
+            String content = new String(buf);
+            Log.e("orion", content);
+            Map<String, String> xml = decodeXml(content);
+
+            return xml;
+        }
+    }
+
+
+    private void genPayReq(Context context, String prepay_id) {
+        PayReq req = new PayReq();
+        req.appId = Constants.WX_APPID;
+        req.partnerId = Constants.WX_SHOP_NUM;
+        req.prepayId = prepay_id;
+        req.packageValue = "Sign=WXPay";
+//        req.packageValue = "prepay_id=" + prepay_id;
+        req.nonceStr = genNonceStr();
+        req.timeStamp = String.valueOf(genTimeStamp());
+
+
+        List<NameValuePair> signParams = new LinkedList<NameValuePair>();
+        signParams.add(new BasicNameValuePair("appid", req.appId));
+        signParams.add(new BasicNameValuePair("noncestr", req.nonceStr));
+        signParams.add(new BasicNameValuePair("package", req.packageValue));
+        signParams.add(new BasicNameValuePair("partnerid", req.partnerId));
+        signParams.add(new BasicNameValuePair("prepayid", req.prepayId));
+        signParams.add(new BasicNameValuePair("timestamp", req.timeStamp));
+
+        req.sign = genAppSign(signParams);
+
+
+        Log.e("orion", signParams.toString());
+        IWXAPI msgApi = WXAPIFactory.createWXAPI(context, null);
+        msgApi.registerApp(Constants.WX_APPID);
+        msgApi.sendReq(req);
+
+    }
+
+    private long genTimeStamp() {
+        return System.currentTimeMillis() / 1000;
+    }
+
+    private String genAppSign(List<NameValuePair> params) {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < params.size(); i++) {
+            sb.append(params.get(i).getName());
+            sb.append('=');
+            sb.append(params.get(i).getValue());
+            sb.append('&');
+        }
+        sb.append("key=");
+        sb.append(Constants.WX_API_KEUSTORE);
+
+        String appSign = MD5.getMessageDigest(sb.toString().getBytes());
+        Log.e("orion", appSign);
+        return appSign;
+    }
+
+    /**
+     * 支付 //商品名中文冲突 详情genProductArgs()方法
+     * @param context
+     * @param goods_name
+     * @param fee
+     * @param back_url
+     */
+    public void pay(Context context, String order_id, String goods_name, String fee, String back_url,WxCallBack wxcallabck) {
+        this.mWxCallBack = wxcallabck;
+        new GetPrepayIdTask(context, order_id, goods_name, fee, back_url).execute();
+    }
+
+    /**
+     * 在 WxEntryActivity中返回该方法，拿到支付结果。
+   * @param code
+     */
+  public void onRes(int code) {
+        if (mWxCallBack != null) {
+            mWxCallBack.payResponse(code);
+        }
+    }
+}

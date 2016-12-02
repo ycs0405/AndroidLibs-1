@@ -1,0 +1,10 @@
+<resources>
+  <string name="app_name">mvp</string>
+
+  <string name="loading_tip">加载中…</string>
+  <string name="text_retry">点击重试</string>
+  <string name="network_unavailable">糟糕，网络似乎出了点问题!</string>
+  <string name="service_error">服务器貌似有点问题...</string>
+  <string name="connect_error">无法连接到网络啦...</string>
+  <string name="unknown_exception">终端异常</string>
+</resources>

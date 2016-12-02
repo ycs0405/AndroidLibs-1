@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AndroidDatabinding/AndroidDatabinding.iml" filepath="$PROJECT_DIR$/AndroidDatabinding/AndroidDatabinding.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AndroidMvp/AndroidMvp.iml" filepath="$PROJECT_DIR$/AndroidMvp/AndroidMvp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AndroidPayLib/AndroidPayLib.iml" filepath="$PROJECT_DIR$/AndroidPayLib/AndroidPayLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AndroidSpringView/AndroidSpringView.iml" filepath="$PROJECT_DIR$/AndroidSpringView/AndroidSpringView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AndroidStatusBarUtil/AndroidStatusBarUtil.iml" filepath="$PROJECT_DIR$/AndroidStatusBarUtil/AndroidStatusBarUtil.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AndroidSuperTextView/AndroidSuperTextView.iml" filepath="$PROJECT_DIR$/AndroidSuperTextView/AndroidSuperTextView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/androidlibs.iml" filepath="$PROJECT_DIR$/androidlibs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kwmap/kwmap.iml" filepath="$PROJECT_DIR$/kwmap/kwmap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kwshare/kwshare.iml" filepath="$PROJECT_DIR$/kwshare/kwshare.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="LOCAL" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="E:\Android\Android Studio\gradle\gradle-2.14.1" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/AndroidDatabinding" />
+            <option value="$PROJECT_DIR$/AndroidMvp" />
+            <option value="$PROJECT_DIR$/AndroidPayLib" />
+            <option value="$PROJECT_DIR$/AndroidSpringView" />
+            <option value="$PROJECT_DIR$/AndroidStatusBarUtil" />
+            <option value="$PROJECT_DIR$/AndroidSuperTextView" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/kwmap" />
+            <option value="$PROJECT_DIR$/kwshare" />
+            <option value="$PROJECT_DIR$/sample" />
+          </set>
+        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
