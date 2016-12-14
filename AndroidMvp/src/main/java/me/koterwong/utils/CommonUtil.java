@@ -8,14 +8,16 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.Selection;
 import android.text.Spannable;
+import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by Koterwong on 2016/11/5 10:36
  */
-public class Utils {
-  private static final String TAG = Utils.class.getSimpleName();
+public class CommonUtil {
+  private static final String TAG = CommonUtil.class.getSimpleName();
   private static long lastClickTime;
 
   /**
@@ -47,10 +49,10 @@ public class Utils {
    * 类型安全的String 转 Int
    *
    * @param objString 要转换的对象
-   * @param defValue 默认值
+   * @param defValue  默认值
    * @return
    */
-  public final static int convertToInt(Object objString,int defValue) {
+  public final static int convertToInt(Object objString, int defValue) {
     if (objString == null || "".equals(objString.toString().trim())) {
       return defValue;
     }
@@ -97,7 +99,7 @@ public class Utils {
    *
    * @param context
    * @param tvew
-   * @param drawable   图片资源ID
+   * @param drawable 图片资源ID
    */
   public static void setDrawableRight(Context context, TextView tvew, Drawable drawable) {
     // / 这一步必须要做,否则不会显示.
@@ -146,5 +148,26 @@ public class Utils {
     // / 这一步必须要做,否则不会显示.
     drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
     tvew.setCompoundDrawables(null, null, null, drawable);
+  }
+
+  /**
+   * 检验EditText输入的内容是否为空
+   */
+  public static boolean checkEt(Context context, EditText editText, String toast) {
+    String content = editText.getText().toString().trim();
+
+    if (TextUtils.isEmpty(content)) {
+      Toast.makeText(context, toast, Toast.LENGTH_SHORT).show();
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * 检验EditText输入的内容是否为空
+   */
+  public static boolean checkEt(Context context, EditText editText) {
+    return checkEt(context, editText, "请填写完整信息");
   }
 }

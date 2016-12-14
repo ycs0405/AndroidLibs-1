@@ -34,9 +34,9 @@ public abstract class  BaseSubscriber<T> extends Subscriber<Response<T>> {
   /**
    * 服务端的正确应答，只有服务端返回码为 Success的时候调用该方法。
    *
-   * @param response 响应结果
+   * @param data 响应结果
    */
-  public abstract void _onNext(Response<T> response);
+  public abstract void _onNext(T data);
 
   /**
    * 请求结束，请求异常和请求成功都会调用该方法。
@@ -65,7 +65,7 @@ public abstract class  BaseSubscriber<T> extends Subscriber<Response<T>> {
 
   @Override public void onNext(Response<T> response) {
     if (response.isOk()) {
-      _onNext(response);
+      _onNext(response.getData());
     } else {
       _onApiError(new ApiErrorException(response.getCode(), response.getMsg()));
     }

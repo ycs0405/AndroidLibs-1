@@ -38,6 +38,14 @@
     <activity android:name=".ui.activity.SpotsDialogActivity"/>
     <activity android:name=".ui.activity.BottomDialogActivity"/>
     <activity android:name=".ui.activity.DataEpActivity"/>
+    <activity android:name=".ui.activity.Main2Activity">
+    </activity>
+    <activity android:name=".ui.activity.StateButtonActivity">
+    </activity>
+    <activity android:name=".ui.activity.TextViewActivity">
+    </activity>
+    <activity android:name=".ui.activity.nvpsample.MvpSampleActivity">
+    </activity>
   </application>
 
 </manifest>

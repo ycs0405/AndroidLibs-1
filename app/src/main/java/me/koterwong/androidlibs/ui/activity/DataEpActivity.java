@@ -6,6 +6,7 @@ package me.koterwong.androidlibs.ui.activity;
 
 import me.koterwong.androidlibs.R;
 import me.koterwong.androidlibs.base.BaseActivity;
+import me.koterwong.di.component.AppComponent;
 
 /**
  * Created by Koterwong on 2016/10/30 14:08
@@ -16,7 +17,7 @@ public class DataEpActivity extends BaseActivity {
     return R.layout.activity_data_mp;
   }
 
-  @Override protected void injectComponent() {
+  @Override protected void injectComponent(AppComponent appComponent) {
 
   }
 }

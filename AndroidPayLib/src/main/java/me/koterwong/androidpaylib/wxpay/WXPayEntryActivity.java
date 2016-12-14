@@ -13,6 +13,7 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
+import me.koterwong.androidpaylib.Constants;
 import me.koterwong.androidpaylib.R;
 
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
@@ -25,7 +26,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.pay_result);
 
-    api = WXAPIFactory.createWXAPI(this, Constants.APP_ID);
+    api = WXAPIFactory.createWXAPI(this, Constants.WxPay.APP_ID);
     api.handleIntent(getIntent(), this);
   }
 
@@ -45,7 +46,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     Log.d(TAG, "onPayFinish, errCode = " + resp.errCode);
 
     if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
-
+      WXUtils.getWXUtils().onRes(resp.errCode);
     }
   }
 }

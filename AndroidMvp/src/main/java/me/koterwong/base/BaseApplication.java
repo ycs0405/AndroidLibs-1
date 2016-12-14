@@ -31,6 +31,7 @@ public abstract class BaseApplication extends Application implements IApplicatio
   protected static BaseApplication mApplication;
 
   private static LinkedList<BaseAppCompatActivity> mActivities = new LinkedList<>();
+  private AppComponent mAppComponent;
 
   public static BaseApplication get() {
     return mApplication;
@@ -40,29 +41,32 @@ public abstract class BaseApplication extends Application implements IApplicatio
     super.onCreate();
     mApplication = this;
 
-    AppComponent appComponent = DaggerAppComponent.builder()
+    if (BuildConfig.USE_CANARY) {
+      LeakCanary.install(this);
+    }
+
+    initDagger2();   //初始化Dagger2 需要组件
+
+    LogKw.setDebug(BuildConfig.LOG_DEBUG);  // init log
+    JPushUtil.initJPush(this, true);  //init jPush
+    CrashHandler.get().init(getApplicationContext()); //init CrashHandler
+  }
+
+  private void initDagger2() {
+    mAppComponent = DaggerAppComponent.builder()
         .appModule(new AppModule(this))
         .clientModule(new ClientModule(getHttpUrl(), getHttpHandler()))
         .serviceModule(new ServiceModule())
         .build();
-
-    if (BuildConfig.USE_CANARY) {
-      LeakCanary.install(this);
-     }
-
-    // init log
-    LogKw.setDebug(BuildConfig.LOG_DEBUG);
-
-    //init jPush
-    JPushUtil.initJPush(this, true);
-
-    //init CrashHandler
-    CrashHandler.get().init(getApplicationContext());
   }
 
   protected abstract HttpUrl getHttpUrl();
 
   protected abstract GlobeHttpHandler getHttpHandler();
+
+  public AppComponent getAppComponent() {
+    return mAppComponent;
+  }
 
   @Override public void addActivity(BaseAppCompatActivity activity) {
     mActivities.add(activity);

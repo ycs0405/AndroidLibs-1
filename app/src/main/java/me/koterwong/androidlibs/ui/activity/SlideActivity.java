@@ -13,6 +13,7 @@ import butterknife.Bind;
 import me.koterwong.androidlibs.R;
 import me.koterwong.base.BaseAppCompatActivity;
 import me.koterwong.common.LogKw;
+import me.koterwong.di.component.AppComponent;
 import me.koterwong.widget.slidelayout.SlideLayout;
 import me.koterwong.widget.slidelayout.transformers.ZoomInTransformer;
 
@@ -35,7 +36,7 @@ public class SlideActivity extends BaseAppCompatActivity {
     return R.layout.activity_slide;
   }
 
-  @Override protected void injectComponent() {
+  @Override protected void injectComponent(AppComponent appComponent) {
     mSlideLayout
         .bind(mimg)
         .setPagerTransform(new ZoomInTransformer())

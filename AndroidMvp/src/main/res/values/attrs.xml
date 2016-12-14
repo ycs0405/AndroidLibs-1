@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+  <!--SlideLayout 图片轮播-->
   <declare-styleable name="SlideLayout">
     <attr name="indicator_size" format="dimension"/>
     <attr name="indicator_margin" format="dimension"/>
@@ -19,11 +21,68 @@
 
   </declare-styleable>
 
-
+  <!--SpotsDialog-->
   <declare-styleable name="SpotsDialog">
     <attr name="DialogTitleAppearance" format="reference"/>
     <attr name="DialogTitleText" format="string|reference"/>
     <attr name="DialogSpotColor" format="reference|color"/>
     <attr name="DialogSpotCount" format="integer"/>
   </declare-styleable>
+
+  <!--StateButton 自带点击效果的Button-->
+  <declare-styleable name="StateButton">
+
+    <!--text color-->
+    <attr name="normalTextColor" format="color|reference"/>
+    <attr name="pressedTextColor" format="color|reference"/>
+    <attr name="unableTextColor" format="color|reference"/>
+
+    <!--stroke width and color, dash width, dash gap-->
+    <attr name="strokeDashWidth" format="dimension|reference"/>
+    <attr name="strokeDashGap" format="dimension|reference"/>
+    <attr name="normalStrokeWidth" format="dimension|reference"/>
+    <attr name="pressedStrokeWidth" format="dimension|reference"/>
+    <attr name="unableStrokeWidth" format="dimension|reference"/>
+    <attr name="normalStrokeColor" format="color|reference"/>
+    <attr name="pressedStrokeColor" format="color|reference"/>
+    <attr name="unableStrokeColor" format="color|reference"/>
+
+    <!--background color-->
+    <attr name="normalBackgroundColor" format="color|reference"/>
+    <attr name="pressedBackgroundColor" format="color|reference"/>
+    <attr name="unableBackgroundColor" format="color|reference"/>
+
+    <!--background radius-->
+    <attr name="radius" format="dimension|reference"/>
+    <attr name="round" format="boolean|reference"/>
+
+    <!--animation duration-->
+    <attr name="animationDuration" format="integer|reference"/>
+
+  </declare-styleable>
+
+  <!--AutoLinkStyleTextView-->
+  <declare-styleable name="AutoLinkStyleTextView">
+    <attr name="AutoLinkStyleTextView_text_value" format="string|reference"/>
+    <attr name="AutoLinkStyleTextView_default_color" format="color|reference"/>
+    <attr name="AutoLinkStyleTextView_has_under_line" format="boolean"/>
+  </declare-styleable>
+
+  <!-- ExpandTextView -->
+  <declare-styleable name="ExpandTextView">
+    <attr name="titleText" format="reference|string" />
+    <attr name="contentText" format="reference|string" />
+    <attr name="foldHint" format="reference|string" />
+    <attr name="expandHint" format="reference|string" />
+    <attr name="textTitleColor" format="reference|color" />
+    <attr name="textContentColor" format="reference|color" />
+    <attr name="textHintColor" format="reference|color" />
+    <attr name="indicateImage" format="reference" />
+    <attr name="minVisibleLines" format="integer" />
+    <attr name="titleTextSize" format="dimension" />
+    <attr name="contentTextSize" format="dimension" />
+    <attr name="hintTextSize" format="dimension" />
+    <attr name="animDuration" format="integer" />
+  </declare-styleable>
+
 </resources>

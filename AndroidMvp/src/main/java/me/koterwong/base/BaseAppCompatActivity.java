@@ -7,60 +7,46 @@ package me.koterwong.base;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
+import android.widget.Toast;
 
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 import com.umeng.analytics.MobclickAgent;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
+import me.koterwong.annotation.KMainActivity;
+import me.koterwong.common.LogKw;
+import me.koterwong.di.component.AppComponent;
 import me.koterwong.mvp.BasePresenter;
 import me.koterwong.statusbartint.StatusBarCompat;
 import me.koterwong.utils.IntentHandler;
-import me.koterwong.common.LogKw;
 
 /**
  * Created by Koterwong on 2016/9/20 10:16
- * <p/>
- * 对于每一个activity，默认注入Presenter，只需要传入对应的泛型。
- * 使用dagger2管理的应用，一般每个activity和fragment都有与之对应component和module，要使注入的presenter
- * 生效需要在对应的module中提供presenter对象或者使用@Inject标注presenter的构造函数。
- * <p/>
- * injectComponent ：实现该方法注入当前的activity到dagger2。
  */
-public abstract class BaseAppCompatActivity<P extends BasePresenter> extends RxAppCompatActivity {
+public abstract class BaseAppCompatActivity<P extends BasePresenter> extends AppCompatActivity {
   protected final String TAG = this.getClass().getSimpleName();
-
   private IntentHandler mIntentHandler;
   protected BaseApplication mApplication;
 
-  @Inject P mPresenter;
+  @Inject
+  P mPresenter;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     LogKw.e("Current BackStack Topic Activity is ---> " + this.getClass().getSimpleName());
-
     mApplication = (BaseApplication) getApplication();
-
     synchronized (BaseAppCompatActivity.class) {
       mApplication.addActivity(this);
     }
-
     setContentView(getLayoutId());
-
-    //设置状态栏
-    setStatusBar();
-
+    setStatusBar(); //设置状态栏
     ButterKnife.bind(this);
-
-    //设置Dagger2 注入。
-    injectComponent();
-
-    //初始化activity需要的变量 。
-    initField();
-
-    //初始化网络数据。
-    initData();
+    injectComponent(mApplication.getAppComponent()); //设置Dagger2 注入。
+    initField();   //初始化activity需要的变量 。
+    initData();   //初始化网络数据。
   }
 
   @LayoutRes
@@ -70,15 +56,11 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter> extends RxA
     StatusBarCompat.setColor(this, Color.parseColor("#FF0000"));
   }
 
-  protected abstract void injectComponent();
+  protected abstract void injectComponent(AppComponent appComponent);
 
-  protected void initField() {
+  protected void initField() {}
 
-  }
-
-  protected void initData() {
-
-  }
+  protected void initData() {}
 
   @Override protected void onResume() {
     super.onResume();
@@ -104,10 +86,27 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter> extends RxA
     ButterKnife.unbind(this);
   }
 
+  @Deprecated
   protected IntentHandler getIntentHandler() {
     if (mIntentHandler == null) {
       mIntentHandler = new IntentHandler(this);
     }
     return mIntentHandler;
   }
+
+  private long exitTime ;
+
+  @Override public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+      if (KMainActivity.Helper.isMainActivity(this)) {
+        if ((System.currentTimeMillis() - exitTime) > 2000) {
+          Toast.makeText(mApplication, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+          exitTime = System.currentTimeMillis();
+          return true;
+        }
+      }
+    }
+    return super.onKeyDown(keyCode, event);
+  }
+
 }

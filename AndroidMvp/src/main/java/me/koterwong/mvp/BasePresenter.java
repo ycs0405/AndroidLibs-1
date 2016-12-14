@@ -16,7 +16,7 @@ import rx.subscriptions.CompositeSubscription;
  * 注意：
  * 使用@Inject注解标注Presenter层的构造函数，为每个页面（Activity，Fragment提供Presenter引用。）
  */
-public class BasePresenter<M extends BaseModel, V extends BaseView> implements BaseContract.Presenter {
+public class BasePresenter<M extends BaseModel, V extends BaseContract.View> implements BaseContract.Presenter {
 
   protected final String TAG = this.getClass().getSimpleName();
   protected CompositeSubscription mCompositeSubscription;

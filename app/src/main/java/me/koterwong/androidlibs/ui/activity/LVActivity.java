@@ -13,6 +13,7 @@ import butterknife.Bind;
 import me.koterwong.androidlibs.R;
 import me.koterwong.androidlibs.ui.adapter.LvMultiAdaoter;
 import me.koterwong.base.BaseAppCompatActivity;
+import me.koterwong.di.component.AppComponent;
 import me.koterwong.statusbartint.StatusBarCompat;
 
 /**
@@ -51,7 +52,7 @@ public class LVActivity extends BaseAppCompatActivity {
     StatusBarCompat.setStatusBarImmersive(this);
   }
 
-  @Override protected void injectComponent() {
+  @Override protected void injectComponent(AppComponent appComponent) {
 
   }
 

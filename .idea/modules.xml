@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/AndroidSpringView/AndroidSpringView.iml" filepath="$PROJECT_DIR$/AndroidSpringView/AndroidSpringView.iml" />
       <module fileurl="file://$PROJECT_DIR$/AndroidStatusBarUtil/AndroidStatusBarUtil.iml" filepath="$PROJECT_DIR$/AndroidStatusBarUtil/AndroidStatusBarUtil.iml" />
       <module fileurl="file://$PROJECT_DIR$/AndroidSuperTextView/AndroidSuperTextView.iml" filepath="$PROJECT_DIR$/AndroidSuperTextView/AndroidSuperTextView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DatabingSample/DatabingSample.iml" filepath="$PROJECT_DIR$/DatabingSample/DatabingSample.iml" />
       <module fileurl="file://$PROJECT_DIR$/androidlibs.iml" filepath="$PROJECT_DIR$/androidlibs.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/kwmap/kwmap.iml" filepath="$PROJECT_DIR$/kwmap/kwmap.iml" />

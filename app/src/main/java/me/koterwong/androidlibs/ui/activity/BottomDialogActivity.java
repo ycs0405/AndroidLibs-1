@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import me.koterwong.androidlibs.R;
 import me.koterwong.androidlibs.base.BaseActivity;
+import me.koterwong.di.component.AppComponent;
 import me.koterwong.widget.dialog.ProgressDialog;
 import me.koterwong.widget.dialog.bottomlialog.BottomDialog;
 
@@ -21,7 +22,7 @@ public class BottomDialogActivity extends BaseActivity {
     return R.layout.activity_bottom_dialog;
   }
 
-  @Override protected void injectComponent() {
+  @Override protected void injectComponent(AppComponent appComponent) {
 
   }
 

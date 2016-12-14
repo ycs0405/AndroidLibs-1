@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import me.koterwong.androidpaylib.Constants;
+
 public class WXUtils {
 
     private static WXUtils sWXUtils;
@@ -55,7 +57,7 @@ public class WXUtils {
             sb.append('&');
         }
         sb.append("key=");
-        sb.append(Constants.WX_API_KEUSTORE);
+        sb.append(Constants.WxPay.WX_API_KEUSTORE);
 
         String packageSign = MD5.getMessageDigest(sb.toString().getBytes()).toUpperCase();
         Log.e("orion", packageSign);
@@ -68,9 +70,9 @@ public class WXUtils {
             String nonceStr = genNonceStr();
             xml.append("</xml>");
             List<NameValuePair> packageParams = new LinkedList<NameValuePair>();
-            packageParams.add(new BasicNameValuePair("appid", Constants.WX_APPID));
+            packageParams.add(new BasicNameValuePair("appid", Constants.WxPay.APP_ID));
             packageParams.add(new BasicNameValuePair("body",goods_name));//商品名中文冲突
-            packageParams.add(new BasicNameValuePair("mch_id", Constants.WX_SHOP_NUM));
+            packageParams.add(new BasicNameValuePair("mch_id", Constants.WxPay.WX_SHOP_NUM));
             packageParams.add(new BasicNameValuePair("nonce_str", nonceStr));
             packageParams.add(new BasicNameValuePair("notify_url", back_url));
             packageParams.add(new BasicNameValuePair("out_trade_no", orderId));
@@ -199,8 +201,8 @@ public class WXUtils {
 
     private void genPayReq(Context context, String prepay_id) {
         PayReq req = new PayReq();
-        req.appId = Constants.WX_APPID;
-        req.partnerId = Constants.WX_SHOP_NUM;
+        req.appId = Constants.WxPay.APP_ID;
+        req.partnerId = Constants.WxPay.WX_SHOP_NUM;
         req.prepayId = prepay_id;
         req.packageValue = "Sign=WXPay";
 //        req.packageValue = "prepay_id=" + prepay_id;
@@ -221,7 +223,7 @@ public class WXUtils {
 
         Log.e("orion", signParams.toString());
         IWXAPI msgApi = WXAPIFactory.createWXAPI(context, null);
-        msgApi.registerApp(Constants.WX_APPID);
+        msgApi.registerApp(Constants.WxPay.APP_ID);
         msgApi.sendReq(req);
 
     }
@@ -240,7 +242,7 @@ public class WXUtils {
             sb.append('&');
         }
         sb.append("key=");
-        sb.append(Constants.WX_API_KEUSTORE);
+        sb.append(Constants.WxPay.WX_API_KEUSTORE);
 
         String appSign = MD5.getMessageDigest(sb.toString().getBytes());
         Log.e("orion", appSign);

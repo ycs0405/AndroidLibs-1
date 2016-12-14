@@ -8,7 +8,7 @@ import com.alipay.sdk.app.PayTask;
 
 import java.util.Map;
 
-import me.koterwong.androidpaylib.alipay.util.OrderInfoHelp2_0;
+import me.koterwong.androidpaylib.Constants;
 import me.koterwong.androidpaylib.alipay.util.OrderInfoUtil2_0;
 
 /**
@@ -51,9 +51,9 @@ public class AliPay {
   public void payV2(String total_amount, final String content ,final String order_trade_no, final AlipayCallBack callBack) {
     final Handler handler = new Handler();
 
-    Map<String, String> params = OrderInfoUtil2_0.buildOrderParamMap(OrderInfoHelp2_0.APPID, total_amount, content, order_trade_no);
+    Map<String, String> params = OrderInfoUtil2_0.buildOrderParamMap(Constants.AliPay.APPID, total_amount, content, order_trade_no);
     String orderParam = OrderInfoUtil2_0.buildOrderParam(params);
-    String sign = OrderInfoUtil2_0.getSign(params, OrderInfoHelp2_0.RSA_PRIVATE);
+    String sign = OrderInfoUtil2_0.getSign(params, Constants.AliPay.RSA_PRIVATE);
 
     final String orderInfo = orderParam + "&" + sign;
     Runnable runnable = new Runnable() {

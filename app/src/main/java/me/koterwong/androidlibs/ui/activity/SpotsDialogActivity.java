@@ -5,6 +5,7 @@ import android.view.View;
 import butterknife.OnClick;
 import me.koterwong.androidlibs.R;
 import me.koterwong.base.BaseAppCompatActivity;
+import me.koterwong.di.component.AppComponent;
 import me.koterwong.widget.dialog.spotsdialog.SpotsDialog;
 
 public class SpotsDialogActivity extends BaseAppCompatActivity {
@@ -13,7 +14,7 @@ public class SpotsDialogActivity extends BaseAppCompatActivity {
     return R.layout.activity_spots_dialog;
   }
 
-  @Override protected void injectComponent() {
+  @Override protected void injectComponent(AppComponent appComponent) {
 
   }
 

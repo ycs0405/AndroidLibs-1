@@ -10,12 +10,14 @@ import java.util.List;
 import butterknife.Bind;
 import me.koterwong.androidlibs.R;
 import me.koterwong.base.BaseAppCompatActivity;
+import me.koterwong.di.component.AppComponent;
 import me.koterwong.widget.listview.CommonAdapter;
 import me.koterwong.widget.listview.ViewHolder;
 
 
 public class MainActivity extends BaseAppCompatActivity {
   private List<String> mDatas = new ArrayList<>();
+
   {
     mDatas.add("ListView");
     mDatas.add("RecyclerView");
@@ -24,7 +26,11 @@ public class MainActivity extends BaseAppCompatActivity {
     mDatas.add("SpotsDialog");
     mDatas.add("BottomDialog");
     mDatas.add("DateEmptyView");
+    mDatas.add("StateButton");
+    mDatas.add("textView");
+    mDatas.add("mvp");
   }
+
   @Bind(R.id.list_item) ListView mListView;
 
 
@@ -37,7 +43,7 @@ public class MainActivity extends BaseAppCompatActivity {
 //    StatusBarCompat.setStatusBarImmersive(this);
   }
 
-  @Override protected void injectComponent() {
+  @Override protected void injectComponent(AppComponent appComponent) {
 
   }
 
@@ -64,6 +70,12 @@ public class MainActivity extends BaseAppCompatActivity {
           getIntentHandler().intentToActivity(BottomDialogActivity.class);
         } else if (position == 6) {
           getIntentHandler().intentToActivity(DataEpActivity.class);
+        } else if (position == 7) {
+          getIntentHandler().intentToActivity(StateButtonActivity.class);
+        } else if (position == 8) {
+          getIntentHandler().intentToActivity(TextViewActivity.class);
+        } else if (position == 9) {
+          getIntentHandler().intentToActivity(MvpSampleActivity.class);
         }
       }
     });

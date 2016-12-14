@@ -42,14 +42,15 @@ import rx.schedulers.Schedulers;
  *
  * 使用方法，直接在布局文件中声明。然后使用如下方式绑定图片。
  *
- *   mSlideLayout
- *      .bind(mimg)
- *      .setPagerTransform(new ZoomInTransformer())
- *      .withListener(new SlideLayout.SlideItemClick() {
- *          @Override public void onSlideItemClick(int position) {
- *            Toast.makeText(mApplication, "" + position, Toast.LENGTH_SHORT).show();
- *          }
- *      });
+ * mSlideLayout
+ * .bind(mimg)
+ * .setPagerTransform(new ZoomInTransformer())
+ * .withListener(new SlideLayout.SlideItemClick() {
+ *
+ * @Override public void onSlideItemClick(int position) {
+ * Toast.makeText(mApplication, "" + position, Toast.LENGTH_SHORT).show();
+ * }
+ * });
  */
 public class SlideLayout extends FrameLayout implements ViewPager.OnPageChangeListener {
   private static final String TAG = SlideLayout.class.getSimpleName();
@@ -57,7 +58,6 @@ public class SlideLayout extends FrameLayout implements ViewPager.OnPageChangeLi
   /** indicator */
   @Deprecated
   private static final int INDICATOR_LEFT = Gravity.LEFT;
-
   private static final int INDICATOR_RIGHT = Gravity.RIGHT;
   private static final int INDICATOR_CENTER = Gravity.CENTER;
   private int mIndicatorGravity = INDICATOR_RIGHT;
@@ -72,6 +72,7 @@ public class SlideLayout extends FrameLayout implements ViewPager.OnPageChangeLi
   private List<ImageView> mImageViews;
   private PagerAdapter mPagerAdapter;
 
+  private boolean mAutoPlayAble = true;
   private int DelayTime = 3;  //默认轮播时间间隔
   private Subscription mSubscription;
 
@@ -148,6 +149,12 @@ public class SlideLayout extends FrameLayout implements ViewPager.OnPageChangeLi
     mPagerAdapter = new SlidePagerAdapter();
     mViewPager.setAdapter(mPagerAdapter);
     mViewPager.addOnPageChangeListener(this);
+
+    if (mAutoPlayAble) {
+      int zeroItem = Integer.MAX_VALUE / 2 - (Integer.MAX_VALUE / 2) % mImageViews.size();
+      mViewPager.setCurrentItem(zeroItem);
+    }
+
     addIndicator();
     bingListener();
     start();
@@ -228,7 +235,7 @@ public class SlideLayout extends FrameLayout implements ViewPager.OnPageChangeLi
   private class SlidePagerAdapter extends PagerAdapter {
 
     @Override public int getCount() {
-      return mImageViews.size() == 1 ? 1 : Integer.MAX_VALUE;
+      return mImageViews.size() == 1 ? 1 : (mAutoPlayAble ? Integer.MAX_VALUE : mImageViews.size());
     }
 
     @Override public boolean isViewFromObject(View view, Object object) {

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_text_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="me.koterwong.androidlibs.ui.activity.TextViewActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+  <me.koterwong.widget.textview.AutoLinkStyleTextView
+      android:id="@+id/auto_tv"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="今日特大新闻，二哈硬刚泰迪不过"
+      app:AutoLinkStyleTextView_default_color="#a39860"
+      app:AutoLinkStyleTextView_text_value="特大新闻,泰迪"
+      app:AutoLinkStyleTextView_has_under_line="true"
+      />
+
+  <me.koterwong.widget.textview.ExpandTextView
+      android:layout_below="@id/auto_tv"
+      android:id="@+id/expand_text_view"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:animDuration="1000"
+      app:titleText="曾经往事"
+      app:minVisibleLines="4"
+      app:contentText="这是我们走过的路，哈哈哈哈哈啊哈哈哈这是我们走过的路，哈哈哈哈哈啊哈哈哈这是我们走过的路，哈哈哈哈哈啊哈哈哈这是我们走过的路，哈哈哈哈哈啊哈哈哈这是我们走过的路，哈哈哈哈哈啊哈哈哈这是我们走过的路，哈哈哈哈哈啊哈哈哈这是我们走过的路，哈哈哈哈哈啊哈哈哈这是我们走过的路，哈哈哈哈哈啊哈哈哈这是我们走过的路，哈哈哈哈哈啊哈哈哈这是我们走过的路，哈哈哈哈哈啊哈哈哈这是我们走过的路，哈哈哈哈哈啊哈哈哈这是我们走过的路，哈哈哈哈哈啊哈哈哈这是我们走过的路，哈哈哈哈哈啊哈哈哈这是我们走过的路，哈哈哈哈哈啊哈哈哈这是我们走过的路，哈哈哈哈哈啊哈哈哈这是我们走过的路，哈哈哈哈哈啊哈哈哈"
+      />
+
+</RelativeLayout>

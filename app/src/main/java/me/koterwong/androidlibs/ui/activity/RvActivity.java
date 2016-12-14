@@ -17,6 +17,7 @@ import butterknife.Bind;
 import me.koterwong.androidlibs.R;
 import me.koterwong.androidlibs.ui.adapter.RvMultiAdapoter;
 import me.koterwong.base.BaseAppCompatActivity;
+import me.koterwong.di.component.AppComponent;
 import me.koterwong.statusbartint.StatusBarCompat;
 import me.koterwong.common.LogKw;
 import me.koterwong.widget.recyclerview.MultiItemTypeAdapter;
@@ -59,7 +60,7 @@ public class RvActivity extends BaseAppCompatActivity {
     return R.layout.activity_rv;
   }
 
-  @Override protected void injectComponent() {
+  @Override protected void injectComponent(AppComponent appComponent) {
 
   }
 

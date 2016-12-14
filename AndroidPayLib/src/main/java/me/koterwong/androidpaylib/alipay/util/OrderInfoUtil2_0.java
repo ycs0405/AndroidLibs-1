@@ -13,6 +13,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
+import me.koterwong.androidpaylib.Constants;
 import me.koterwong.androidpaylib.alipay.SignUtils;
 
 /**
@@ -79,7 +80,7 @@ public class OrderInfoUtil2_0 {
     //调用接口版本，固定为1.0
     keyValues.put("version", "1.0");
     //支付宝异步回调地址
-    keyValues.put("notify_url", OrderInfoHelp2_0.NOTIFY_URL);
+    keyValues.put("notify_url", Constants.AliPay.NOTIFY_URL);
 
     return keyValues;
   }

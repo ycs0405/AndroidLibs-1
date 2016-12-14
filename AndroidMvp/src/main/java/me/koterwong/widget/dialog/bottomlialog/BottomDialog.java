@@ -12,10 +12,17 @@ import android.view.View;
 /**
  * Created by Koterwong on 2016/10/30 11:27
  *
- * 底部对话框，使用
+ * 底部对话框，使用方法
+ * BottomDialog dialog = BottomDialog.create(getSupportFragmentManager())
+ *        .setCancelOutside(false)
+ *        .setLayoutRes(R.layout.dialog_edit_text)
+ *        .setDimAmount(0.5f)
+ *        .setViewListener(new BottomDialog.ViewListener() {
+ *              @Override public void bindView(View v) {
  *
- *
- *
+ *              }
+ *        });
+ * dialog.show();
  */
 public class BottomDialog extends BaseBottomDialog {
   private static final String KEY_LAYOUT_RES = "bottom_layout_res";
@@ -59,9 +66,9 @@ public class BottomDialog extends BaseBottomDialog {
     super.onSaveInstanceState(outState);
   }
 
-  @Override protected void bindView(View v) {
+  @Override protected void bindView(View dialogRootView) {
     if (mViewListener != null) {
-      mViewListener.bindView(v);
+      mViewListener.bindView(dialogRootView);
     }
   }
 

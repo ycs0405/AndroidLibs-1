@@ -4,5 +4,5 @@
   <dimen name="title_margin">12dp</dimen>
   <dimen name="progress_margin_top">18dp</dimen>
   <dimen name="progress_margin_right">8dp</dimen>
-  <dimen name="progress_width">120dp</dimen>
+  <dimen name="progress_width">150dp</dimen>
 </resources>
