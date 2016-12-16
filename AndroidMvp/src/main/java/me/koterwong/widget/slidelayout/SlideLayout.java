@@ -43,14 +43,14 @@ import rx.schedulers.Schedulers;
  * 使用方法，直接在布局文件中声明。然后使用如下方式绑定图片。
  *
  * mSlideLayout
- * .bind(mimg)
- * .setPagerTransform(new ZoomInTransformer())
- * .withListener(new SlideLayout.SlideItemClick() {
+ *    .bind(mimg)
+ *    .setPagerTransform(new ZoomInTransformer())
+ *    .withListener(new SlideLayout.SlideItemClick() {
  *
- * @Override public void onSlideItemClick(int position) {
- * Toast.makeText(mApplication, "" + position, Toast.LENGTH_SHORT).show();
- * }
- * });
+ *      @Override public void onSlideItemClick(int position) {
+ *          Toast.makeText(mApplication, "" + position, Toast.LENGTH_SHORT).show();
+ *    }
+ *    });
  */
 public class SlideLayout extends FrameLayout implements ViewPager.OnPageChangeListener {
   private static final String TAG = SlideLayout.class.getSimpleName();

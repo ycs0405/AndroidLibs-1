@@ -9,6 +9,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import me.koterwong.androidlibs.R;
+import me.koterwong.androidlibs.ui.activity.nvpsample.MvpSampleActivity;
 import me.koterwong.base.BaseAppCompatActivity;
 import me.koterwong.di.component.AppComponent;
 import me.koterwong.widget.listview.CommonAdapter;

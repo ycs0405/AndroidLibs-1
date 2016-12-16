@@ -4,8 +4,6 @@
  */
 package me.koterwong.mvp;
 
-import javax.inject.Inject;
-
 import me.koterwong.api.ServiceManager;
 
 /**
@@ -13,8 +11,11 @@ import me.koterwong.api.ServiceManager;
  *
  */
 public class BaseModel implements BaseContract.Model {
-  @Inject
   protected ServiceManager mServiceManager;
+
+  public BaseModel(ServiceManager serviceManager) {
+    mServiceManager = serviceManager;
+  }
 
   @Override public void onDestroy() {
     mServiceManager = null;

@@ -32,7 +32,7 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter> extends App
   protected BaseApplication mApplication;
 
   @Inject
-  P mPresenter;
+  protected P mPresenter;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
