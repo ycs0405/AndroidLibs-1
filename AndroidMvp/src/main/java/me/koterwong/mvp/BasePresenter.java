@@ -12,9 +12,6 @@ import rx.subscriptions.CompositeSubscription;
  *
  * presenter层传入Model和View泛型获取Model和View。
  * 在每一个页面对应的Module中，提供Model和View的引用。
- *
- * 注意：
- * 使用@Inject注解标注Presenter层的构造函数，为每个页面（Activity，Fragment提供Presenter引用。）
  */
 public class BasePresenter<M extends BaseModel, V extends BaseContract.View> implements BaseContract.Presenter {
 
@@ -48,6 +45,7 @@ public class BasePresenter<M extends BaseModel, V extends BaseContract.View> imp
    */
   @Override public void onDestroy() {
     unSubscribe();//解除订阅
+    this.mModel.onDestroy();
     this.mModel = null;
     this.mView = null;
   }

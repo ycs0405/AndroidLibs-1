@@ -4,6 +4,9 @@
  */
 package me.koterwong.base;
 
+import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -15,7 +18,6 @@ import com.umeng.analytics.MobclickAgent;
 
 import javax.inject.Inject;
 
-import butterknife.ButterKnife;
 import me.koterwong.annotation.KMainActivity;
 import me.koterwong.common.LogKw;
 import me.koterwong.di.component.AppComponent;
@@ -26,27 +28,32 @@ import me.koterwong.utils.IntentHandler;
 /**
  * Created by Koterwong on 2016/9/20 10:16
  */
-public abstract class BaseAppCompatActivity<P extends BasePresenter> extends AppCompatActivity {
+public abstract class BaseAppCompatActivity<P extends BasePresenter ,D extends ViewDataBinding> extends AppCompatActivity {
   protected final String TAG = this.getClass().getSimpleName();
   private IntentHandler mIntentHandler;
-  protected BaseApplication mApplication;
-
+  protected BaseApplication mAppContext; //appContext 对象
+  protected Context mContext; // 当前Activity对象
   @Inject
   protected P mPresenter;
+  protected D mDataBinding;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     LogKw.e("Current BackStack Topic Activity is ---> " + this.getClass().getSimpleName());
-    mApplication = (BaseApplication) getApplication();
+    mAppContext = (BaseApplication) getApplication();
+    mContext = this;
     synchronized (BaseAppCompatActivity.class) {
-      mApplication.addActivity(this);
+      mAppContext.addActivity(this);
     }
-    setContentView(getLayoutId());
+    mDataBinding = setContentView();
     setStatusBar(); //设置状态栏
-    ButterKnife.bind(this);
-    injectComponent(mApplication.getAppComponent()); //设置Dagger2 注入。
+    injectComponent(mAppContext.getAppComponent()); //设置Dagger2 注入。
     initField();   //初始化activity需要的变量 。
     initData();   //初始化网络数据。
+  }
+
+  protected D setContentView() {
+    return DataBindingUtil.setContentView(this, getLayoutId());
   }
 
   @LayoutRes
@@ -76,14 +83,12 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter> extends App
     super.onDestroy();
 
     synchronized (BaseAppCompatActivity.class) {
-      mApplication.removeActivity(this);
+      mAppContext.removeActivity(this);
     }
 
     if (mPresenter != null) {
       mPresenter.onDestroy();//释放资源
     }
-
-    ButterKnife.unbind(this);
   }
 
   @Deprecated
@@ -100,7 +105,7 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter> extends App
     if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
       if (KMainActivity.Helper.isMainActivity(this)) {
         if ((System.currentTimeMillis() - exitTime) > 2000) {
-          Toast.makeText(mApplication, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+          Toast.makeText(mAppContext, "再按一次退出程序", Toast.LENGTH_SHORT).show();
           exitTime = System.currentTimeMillis();
           return true;
         }

@@ -5,4 +5,23 @@
   <dimen name="progress_margin_top">18dp</dimen>
   <dimen name="progress_margin_right">8dp</dimen>
   <dimen name="progress_width">150dp</dimen>
+
+
+  <dimen name="dp_4">4dp</dimen>
+  <dimen name="dp_6">6dp</dimen>
+  <dimen name="dp_8">8dp</dimen>
+  <dimen name="dp_10">10dp</dimen>
+  <dimen name="dp_12">12dp</dimen>
+  <dimen name="dp_14">14dp</dimen>
+  <dimen name="dp_16">16dp</dimen>
+  <dimen name="dp_18">18dp</dimen>
+
+  <dimen name="sp_4">4dp</dimen>
+  <dimen name="sp_6">6dp</dimen>
+  <dimen name="sp_8">8dp</dimen>
+  <dimen name="sp_10">10dp</dimen>
+  <dimen name="sp_12">12dp</dimen>
+  <dimen name="sp_14">14dp</dimen>
+  <dimen name="sp_16">16dp</dimen>
+  <dimen name="sp_18">18dp</dimen>
 </resources>

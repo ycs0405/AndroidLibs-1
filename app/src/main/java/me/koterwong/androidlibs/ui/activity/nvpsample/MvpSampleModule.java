@@ -22,12 +22,12 @@ public class MvpSampleModule {
     mView = view;
   }
 
-  @ActScope @Provides public MvpSamplePresenter providerPresenter(MvpSampleModel mvpSampleModel, MvpSampleContract.View view) {
-    return new MvpSamplePresenter(mvpSampleModel, view);
-  }
-
   @ActScope @Provides public MvpSampleContract.View provideView() {
     return mView;
+  }
+
+  @ActScope @Provides public MvpSamplePresenter providerPresenter(MvpSampleModel mvpSampleModel, MvpSampleContract.View view) {
+    return new MvpSamplePresenter(mvpSampleModel, view);
   }
 
   @ActScope @Provides public MvpSampleModel provideModule(ServiceManager serviceManager) {

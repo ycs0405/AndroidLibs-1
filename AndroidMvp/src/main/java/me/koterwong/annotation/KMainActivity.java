@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface KMainActivity {
 
-    class Helper{
+  class Helper {
     public static boolean isMainActivity(Object object) {
       if (object == null) {
         return false;

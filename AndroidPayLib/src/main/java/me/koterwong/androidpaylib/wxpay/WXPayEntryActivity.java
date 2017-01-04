@@ -46,7 +46,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     Log.d(TAG, "onPayFinish, errCode = " + resp.errCode);
 
     if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
-      WXUtils.getWXUtils().onRes(resp.errCode);
+      WxPay.getWxPay().onRes(resp.errCode);
     }
   }
 }

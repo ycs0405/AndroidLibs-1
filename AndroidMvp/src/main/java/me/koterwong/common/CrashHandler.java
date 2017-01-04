@@ -29,8 +29,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
   private static final boolean DEBUG = true;
   private static final String DATA_FORMAT = "yyyy-MM-dd_HH:mm";
   //可以设置自己的保存路径
-  private static final String PATH = Environment.getExternalStorageDirectory().getAbsolutePath()
-      + "/log";
+  private static final String PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + BuildConfig.TEMP_FILE_NAME;
 
   private String mPath = null;
   private Context mContext;

@@ -1,13 +1,13 @@
 package me.koterwong.androidlibs.ui.activity.nvpsample;
 
-import android.widget.TextView;
-
 import me.koterwong.androidlibs.R;
+import me.koterwong.androidlibs.databinding.ActivityMvpSampleBinding;
 import me.koterwong.base.BaseAppCompatActivity;
 import me.koterwong.di.component.AppComponent;
 
-public class MvpSampleActivity extends BaseAppCompatActivity<MvpSamplePresenter> implements MvpSampleContract.View {
-  TextView mTextView;
+public class MvpSampleActivity
+    extends BaseAppCompatActivity<MvpSamplePresenter, ActivityMvpSampleBinding>
+    implements MvpSampleContract.View {
 
   @Override protected int getLayoutId() {
     return R.layout.activity_mvp_sample;
@@ -22,7 +22,7 @@ public class MvpSampleActivity extends BaseAppCompatActivity<MvpSamplePresenter>
   }
 
   @Override protected void initField() {
-    mTextView = (TextView) findViewById(R.id.text);
+
   }
 
   @Override protected void initData() {
@@ -30,7 +30,7 @@ public class MvpSampleActivity extends BaseAppCompatActivity<MvpSamplePresenter>
   }
 
   @Override public void showText(String s) {
-    mTextView.setText(s);
+    mDataBinding.text.setText(s);
   }
 
   @Override public void showProgressDialog() {

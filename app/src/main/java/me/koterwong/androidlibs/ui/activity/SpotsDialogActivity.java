@@ -2,24 +2,25 @@ package me.koterwong.androidlibs.ui.activity;
 
 import android.view.View;
 
-import butterknife.OnClick;
 import me.koterwong.androidlibs.R;
 import me.koterwong.base.BaseAppCompatActivity;
 import me.koterwong.di.component.AppComponent;
 import me.koterwong.widget.dialog.spotsdialog.SpotsDialog;
 
-public class SpotsDialogActivity extends BaseAppCompatActivity {
+public class SpotsDialogActivity extends BaseAppCompatActivity implements View.OnClickListener {
 
   @Override protected int getLayoutId() {
     return R.layout.activity_spots_dialog;
   }
 
   @Override protected void injectComponent(AppComponent appComponent) {
-
+    findViewById(R.id.showdialog).setOnClickListener(this);
+    findViewById(R.id.withmessage).setOnClickListener(this);
+    findViewById(R.id.messageandstyle).setOnClickListener(this);
+    findViewById(R.id.withstyle).setOnClickListener(this);
   }
 
-  @OnClick({R.id.showdialog, R.id.withmessage, R.id.withstyle, R.id.messageandstyle}) public void
-  onClick(View view) {
+  @Override public void onClick(View view) {
     switch (view.getId()) {
       case R.id.showdialog:
         new SpotsDialog(this).show();

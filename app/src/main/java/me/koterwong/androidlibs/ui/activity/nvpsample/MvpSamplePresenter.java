@@ -5,7 +5,6 @@
 package me.koterwong.androidlibs.ui.activity.nvpsample;
 
 import me.koterwong.mvp.BasePresenter;
-import me.koterwong.rx.RxSchedulersHelper;
 import rx.Subscriber;
 
 /**
@@ -19,7 +18,6 @@ public class MvpSamplePresenter extends BasePresenter<MvpSampleModel,MvpSampleCo
 
   @Override public void loadData() {
     mModel.loadData()
-        .compose(RxSchedulersHelper.<String>io_main())
         .subscribe(new Subscriber<String>() {
           @Override public void onCompleted() {
 

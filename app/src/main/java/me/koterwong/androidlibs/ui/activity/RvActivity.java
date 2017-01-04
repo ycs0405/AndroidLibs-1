@@ -13,13 +13,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
 import me.koterwong.androidlibs.R;
 import me.koterwong.androidlibs.ui.adapter.RvMultiAdapoter;
 import me.koterwong.base.BaseAppCompatActivity;
+import me.koterwong.common.LogKw;
 import me.koterwong.di.component.AppComponent;
 import me.koterwong.statusbartint.StatusBarCompat;
-import me.koterwong.common.LogKw;
 import me.koterwong.widget.recyclerview.MultiItemTypeAdapter;
 import me.koterwong.widget.recyclerview.wrapper.HeaderAndFooterWrapper;
 import me.koterwong.widget.recyclerview.wrapper.LoadingMoreWrapper;
@@ -50,7 +49,7 @@ public class RvActivity extends BaseAppCompatActivity {
   }
 
 
-  @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
+  RecyclerView mRecyclerView;
 
   @Override protected void setStatusBar() {
     StatusBarCompat.setStatusBarImmersive(this);
@@ -61,7 +60,7 @@ public class RvActivity extends BaseAppCompatActivity {
   }
 
   @Override protected void injectComponent(AppComponent appComponent) {
-
+    mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
   }
 
   @Override protected void initData() {

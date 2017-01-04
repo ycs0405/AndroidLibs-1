@@ -48,7 +48,7 @@ import rx.schedulers.Schedulers;
  *    .withListener(new SlideLayout.SlideItemClick() {
  *
  *      @Override public void onSlideItemClick(int position) {
- *          Toast.makeText(mApplication, "" + position, Toast.LENGTH_SHORT).show();
+ *          Toast.makeText(mAppContext, "" + position, Toast.LENGTH_SHORT).show();
  *    }
  *    });
  */
@@ -150,14 +150,14 @@ public class SlideLayout extends FrameLayout implements ViewPager.OnPageChangeLi
     mViewPager.setAdapter(mPagerAdapter);
     mViewPager.addOnPageChangeListener(this);
 
+    addIndicator();
+    bingListener();
+    start();
+
     if (mAutoPlayAble) {
       int zeroItem = Integer.MAX_VALUE / 2 - (Integer.MAX_VALUE / 2) % mImageViews.size();
       mViewPager.setCurrentItem(zeroItem);
     }
-
-    addIndicator();
-    bingListener();
-    start();
     return this;
   }
 

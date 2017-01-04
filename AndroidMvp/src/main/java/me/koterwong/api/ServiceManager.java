@@ -17,7 +17,6 @@ public class ServiceManager {
 
   /**
    * 这里使用Inject
-   * @param apiService
    */
   @Inject public ServiceManager(ApiService apiService) {
     mApiService = apiService;

@@ -12,4 +12,6 @@ public class BuildConfig {
   public static final boolean LOG_DEBUG = true;
   /** 内存泄漏检查工具开关 */
   public static final boolean USE_CANARY = true;
+  /** 保存临时文件的sd卡目录 */
+  public static final String TEMP_FILE_NAME = "log";
 }

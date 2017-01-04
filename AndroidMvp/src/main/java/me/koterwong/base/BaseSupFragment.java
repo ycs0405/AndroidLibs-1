@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 
 import javax.inject.Inject;
 
-import butterknife.ButterKnife;
 import me.koterwong.mvp.BasePresenter;
 
 /**
@@ -32,7 +31,6 @@ public abstract class BaseSupFragment<P extends BasePresenter> extends Fragment 
       savedInstanceState) {
     mActivity = (BaseAppCompatActivity) getActivity();
     mRootView = inflater.inflate(getLayoutId(), container, false);
-    ButterKnife.bind(this, mRootView);
     return mRootView;
   }
 
@@ -44,7 +42,6 @@ public abstract class BaseSupFragment<P extends BasePresenter> extends Fragment 
 
   @Override public void onDestroyView() {
     super.onDestroyView();
-    ButterKnife.unbind(this);
   }
 
   @Override public void onDestroy() {

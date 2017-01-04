@@ -9,7 +9,6 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
 import me.koterwong.androidlibs.R;
 import me.koterwong.androidlibs.ui.adapter.LvMultiAdaoter;
 import me.koterwong.base.BaseAppCompatActivity;
@@ -41,7 +40,7 @@ public class LVActivity extends BaseAppCompatActivity {
     mDatas.add("15");
   }
 
-  @Bind(R.id.list_item) ListView mListView;
+  ListView mListView;
 
 
   @Override protected int getLayoutId() {
@@ -54,6 +53,10 @@ public class LVActivity extends BaseAppCompatActivity {
 
   @Override protected void injectComponent(AppComponent appComponent) {
 
+  }
+
+  @Override protected void initField() {
+    mListView = (ListView) findViewById(R.id.list_item);
   }
 
   @Override protected void initData() {
