@@ -96,6 +96,19 @@ public class BottomLayoutManager {
     return this;
   }
 
+
+  /**
+   * 设置底部标签图片的尺寸
+   *
+   * @param itemSize  dpValue
+   */
+  public void setTabImageSize(int itemSize) {
+    for (int i = 0; i < mHomeTabItems.size(); i++) {
+      HomeTabItem item = mHomeTabItems.get(i);
+      item.setSelectImageSize(itemSize);
+    }
+  }
+
   private void setUpItemChange(HomeTabItem homeTabItem, int position) {
     resetTab(homeTabItem);
 

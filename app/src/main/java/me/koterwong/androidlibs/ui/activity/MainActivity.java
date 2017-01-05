@@ -29,6 +29,7 @@ public class MainActivity extends BaseAppCompatActivity {
     mDatas.add("StateButton");
     mDatas.add("textView");
     mDatas.add("mvp");
+    mDatas.add("titlebar");
   }
 
   ListView mListView;
@@ -76,6 +77,8 @@ public class MainActivity extends BaseAppCompatActivity {
           getIntentHandler().intentToActivity(TextViewActivity.class);
         } else if (position == 9) {
           getIntentHandler().intentToActivity(MvpSampleActivity.class);
+        } else if (position == 10) {
+          getIntentHandler().intentToActivity(TitlebarActivity.class);
         }
       }
     });

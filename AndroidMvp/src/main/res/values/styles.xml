@@ -36,4 +36,10 @@
     <item name="android:scrollbarThumbVertical">@drawable/scrollbar_vertical_thumb</item>
     <item name="android:scrollbarSize">4dip</item>
   </style>
+
+  <style name="common_gray_line">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">1px</item>
+    <item name="android:background">#ccc</item>
+  </style>
 </resources>

@@ -4,9 +4,12 @@
  */
 package me.koterwong.base;
 
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,19 +21,22 @@ import me.koterwong.mvp.BasePresenter;
 /**
  * Created by Koterwong on 2016/9/20 14:41
  */
-public abstract class BaseSupFragment<P extends BasePresenter> extends Fragment {
+public abstract class BaseFragment<P extends BasePresenter,D extends ViewDataBinding> extends Fragment {
   protected final String TAG = this.getClass().getSimpleName();
 
-  protected BaseAppCompatActivity mActivity;
+  protected AppCompatActivity mActivity;
   protected View mRootView;
 
-  @Inject P mPresenter;
+  @Inject
+  protected P mPresenter;
+  protected D mDataBinding;
 
   @Nullable @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
       savedInstanceState) {
-    mActivity = (BaseAppCompatActivity) getActivity();
+    mActivity = (AppCompatActivity) getActivity();
     mRootView = inflater.inflate(getLayoutId(), container, false);
+    mDataBinding = DataBindingUtil.bind(mRootView);
     return mRootView;
   }
 
@@ -38,10 +44,6 @@ public abstract class BaseSupFragment<P extends BasePresenter> extends Fragment 
     super.onActivityCreated(savedInstanceState);
     ComponentInject();
     initData();
-  }
-
-  @Override public void onDestroyView() {
-    super.onDestroyView();
   }
 
   @Override public void onDestroy() {

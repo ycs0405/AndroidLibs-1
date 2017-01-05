@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_titlebar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="me.koterwong.androidlibs.ui.activity.TitlebarActivity"
+    >
+  <!--情景一:只有标题-->
+  <me.koterwong.widget.TitleBar
+      android:id="@+id/tb1"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
+
+  <me.koterwong.widget.TitleBar
+      android:id="@+id/tb2"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
+
+  <me.koterwong.widget.TitleBar
+      android:id="@+id/tb3"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
+
+  <me.koterwong.widget.TitleBar
+      android:id="@+id/tb4"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
+
+  <me.koterwong.widget.TitleBar
+      android:id="@+id/tb5"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
+
+  <me.koterwong.widget.TitleBar
+      android:id="@+id/tb6"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
+
+  <me.koterwong.widget.TitleBar
+      android:id="@+id/tb7"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
+
+  <me.koterwong.widget.TitleBar
+      android:id="@+id/tb8"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
+
+  <me.koterwong.widget.TitleBar
+      android:id="@+id/tb9"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
+
+  <me.koterwong.widget.TitleBar
+      android:id="@+id/tb10"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
+</LinearLayout>

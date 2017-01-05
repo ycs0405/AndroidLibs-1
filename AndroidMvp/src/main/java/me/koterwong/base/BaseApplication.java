@@ -9,8 +9,11 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.support.multidex.MultiDex;
+import android.support.v7.app.AppCompatActivity;
 
 import com.squareup.leakcanary.LeakCanary;
+
+import org.eclipse.equinox.app.IApplication;
 
 import java.util.LinkedList;
 
@@ -30,7 +33,7 @@ public abstract class BaseApplication extends Application implements IApplicatio
   protected final String TAG = this.getClass().getSimpleName();
   protected static BaseApplication mApplication;
 
-  private static LinkedList<BaseAppCompatActivity> mActivities = new LinkedList<>();
+  private static LinkedList<AppCompatActivity> mActivities = new LinkedList<>();
   private AppComponent mAppComponent;
 
   public static BaseApplication get() {
@@ -68,20 +71,20 @@ public abstract class BaseApplication extends Application implements IApplicatio
     return mAppComponent;
   }
 
-  @Override public void addActivity(BaseAppCompatActivity activity) {
+   public void addActivity(AppCompatActivity activity) {
     mActivities.add(activity);
   }
 
-  @Override public void removeActivity(BaseAppCompatActivity activity) {
+   public void removeActivity(AppCompatActivity activity) {
     mActivities.remove(activity);
   }
 
 
-  @Override public LinkedList<BaseAppCompatActivity> getActivitys() {
+  public LinkedList<AppCompatActivity> getActivitys() {
     return mActivities;
   }
 
-  @Override public <T> T getActivity(Class<?> activity) {
+  public <T> T getActivity(Class<?> activity) {
     for (int i = 0; i < mActivities.size(); i++) {
       if (getActivitys().get(i).getClass().equals(activity)) {
         return (T) getActivitys().get(i);
@@ -90,19 +93,19 @@ public abstract class BaseApplication extends Application implements IApplicatio
     return null;
   }
 
-  @Override public BaseAppCompatActivity getCurActivity() {
+ public AppCompatActivity getCurActivity() {
     return mActivities.get(mActivities.size() - 1);
   }
 
   /**
    * 退出程序
    */
-  @Override public void killAll() {
-    LinkedList<BaseAppCompatActivity> copy;
-    synchronized (BaseApplication.class) {
+  public void killAll() {
+    LinkedList<AppCompatActivity> copy;
+    synchronized (AppCompatActivity.class) {
       copy = new LinkedList<>(mActivities);
     }
-    for (BaseAppCompatActivity baseAppCompatActivity : copy) {
+    for (AppCompatActivity baseAppCompatActivity : copy) {
       baseAppCompatActivity.finish();
     }
   }

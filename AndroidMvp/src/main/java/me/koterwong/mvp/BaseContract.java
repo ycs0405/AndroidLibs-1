@@ -25,10 +25,12 @@ public interface BaseContract {
   interface View {
     void showProgressDialog();
 
+    void showProgressDialog(String msg);
+
     void dismissProgressDialog();
 
-    void showToast();
+    void showToast(String msg);
 
-    void showSnakeBar();
+    void showSnakeBar(String msg);
   }
 }

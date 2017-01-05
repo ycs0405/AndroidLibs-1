@@ -32,20 +32,4 @@ public class MvpSampleActivity
   @Override public void showText(String s) {
     mDataBinding.text.setText(s);
   }
-
-  @Override public void showProgressDialog() {
-
-  }
-
-  @Override public void dismissProgressDialog() {
-
-  }
-
-  @Override public void showToast() {
-
-  }
-
-  @Override public void showSnakeBar() {
-
-  }
 }

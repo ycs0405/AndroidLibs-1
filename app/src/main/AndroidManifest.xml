@@ -46,6 +46,8 @@
     </activity>
     <activity android:name=".ui.activity.nvpsample.MvpSampleActivity">
     </activity>
+    <activity android:name=".ui.activity.TitlebarActivity">
+    </activity>
   </application>
 
 </manifest>

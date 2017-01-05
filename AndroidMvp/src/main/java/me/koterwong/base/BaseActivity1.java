@@ -10,39 +10,45 @@ import android.databinding.ViewDataBinding;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 
-import javax.inject.Inject;
-
+import me.koterwong.R;
 import me.koterwong.annotation.KMainActivity;
 import me.koterwong.common.LogKw;
 import me.koterwong.di.component.AppComponent;
-import me.koterwong.mvp.BasePresenter;
+import me.koterwong.mvp.BaseContract;
 import me.koterwong.statusbartint.StatusBarCompat;
 import me.koterwong.utils.IntentHandler;
+import me.koterwong.utils.TipsToast;
+import me.koterwong.widget.dialog.spotsdialog.SpotsDialog;
 
 /**
  * Created by Koterwong on 2016/9/20 10:16
  */
-public abstract class BaseAppCompatActivity<P extends BasePresenter ,D extends ViewDataBinding> extends AppCompatActivity {
+public abstract class BaseActivity1<D extends ViewDataBinding> extends AppCompatActivity
+    implements BaseContract.View {
   protected final String TAG = this.getClass().getSimpleName();
+  protected BaseApplication mAppContext;
+  protected Context mContext;
+
   private IntentHandler mIntentHandler;
-  protected BaseApplication mAppContext; //appContext 对象
-  protected Context mContext; // 当前Activity对象
-  @Inject
-  protected P mPresenter;
+
   protected D mDataBinding;
+
+  private TipsToast mTipsToast;
+  private SpotsDialog mSpotsDialog;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     LogKw.e("Current BackStack Topic Activity is ---> " + this.getClass().getSimpleName());
     mAppContext = (BaseApplication) getApplication();
     mContext = this;
-    synchronized (BaseAppCompatActivity.class) {
+    synchronized (BaseActivity.class) {
       mAppContext.addActivity(this);
     }
     mDataBinding = setContentView();
@@ -81,13 +87,8 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter ,D extends V
 
   @Override protected void onDestroy() {
     super.onDestroy();
-
-    synchronized (BaseAppCompatActivity.class) {
+    synchronized (BaseActivity.class) {
       mAppContext.removeActivity(this);
-    }
-
-    if (mPresenter != null) {
-      mPresenter.onDestroy();//释放资源
     }
   }
 
@@ -99,7 +100,7 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter ,D extends V
     return mIntentHandler;
   }
 
-  private long exitTime ;
+  private long exitTime;
 
   @Override public boolean onKeyDown(int keyCode, KeyEvent event) {
     if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
@@ -110,8 +111,49 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter ,D extends V
           return true;
         }
       }
+
+      if (mSpotsDialog != null && mSpotsDialog.isShowing()) {
+        mSpotsDialog.dismiss();
+      }
     }
     return super.onKeyDown(keyCode, event);
   }
 
+
+  //////////////////////////////
+  ////// 通的View操作 /////////
+  //////////////////////////////
+  @Override public void showProgressDialog() {
+    if (mSpotsDialog == null) {
+      mSpotsDialog = new SpotsDialog(mContext, getString(R.string.loading_tip));
+    }
+    mSpotsDialog.show();
+  }
+
+  @Override public void showProgressDialog(String msg) {
+    if (mSpotsDialog == null) {
+      mSpotsDialog = new SpotsDialog(mContext);
+    }
+    mSpotsDialog.setMessage(msg);
+    mSpotsDialog.show();
+  }
+
+  @Override public void dismissProgressDialog() {
+    if (mSpotsDialog != null) {
+      mSpotsDialog.dismiss();
+    }
+  }
+
+  @Override public void showToast(String msg) {
+    if (mTipsToast == null) {
+      mTipsToast = TipsToast.makeText(this, msg, Toast.LENGTH_SHORT);
+    } else {
+      mTipsToast.setText(msg);
+    }
+    mTipsToast.show();
+  }
+
+  @Override public void showSnakeBar(String msg) {
+    Snackbar.make(findViewById(android.R.id.content), msg, Snackbar.LENGTH_SHORT).show();
+  }
 }
