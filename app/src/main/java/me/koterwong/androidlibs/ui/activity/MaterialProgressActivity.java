@@ -1,11 +1,11 @@
 package me.koterwong.androidlibs.ui.activity;
 
 import me.koterwong.androidlibs.R;
-import me.koterwong.base.BaseAppCompatActivity;
+import me.koterwong.androidlibs.base.BaseActivity;
 import me.koterwong.di.component.AppComponent;
 import me.koterwong.widget.MaterialProgressView;
 
-public class MaterialProgressActivity extends BaseAppCompatActivity {
+public class MaterialProgressActivity extends BaseActivity {
   MaterialProgressView mProgressView;
 
   @Override protected int getLayoutId() {

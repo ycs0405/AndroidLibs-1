@@ -13,6 +13,10 @@ public class MvpSampleActivity
     return R.layout.activity_mvp_sample;
   }
 
+  @Override protected void setupTitle() {
+
+  }
+
   @Override protected void injectComponent(AppComponent appComponent) {
     DaggerMvpSampleComponent.builder()
         .appComponent(appComponent)

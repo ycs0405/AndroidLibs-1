@@ -6,8 +6,8 @@ package me.koterwong.androidlibs.ui.activity.nvpsample;
 
 import dagger.Module;
 import dagger.Provides;
-import me.koterwong.api.ServiceManager;
 import me.koterwong.di.scope.ActScope;
+import me.koterwong.net.ServiceManager;
 
 /**
  * Created by Koterwong on 2016/12/15 19:56

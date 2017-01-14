@@ -19,10 +19,7 @@
       android:layout_width="@dimen/progress_width"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
-      android:layout_marginTop="@dimen/progress_margin_top"
-      android:layout_marginBottom="@dimen/progress_margin_top"
-      android:layout_marginRight="@dimen/progress_margin_right"
-      android:layout_marginLeft="@dimen/progress_margin_right"
+      android:layout_margin="@dimen/progress_margin"
       />
 
 </LinearLayout>

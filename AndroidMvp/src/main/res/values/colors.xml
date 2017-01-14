@@ -43,6 +43,8 @@
   <color name="alpha_95_white">#F2FFFFFF</color>
   <color name="white">#FFFFFFFF</color>
 
+  <color name="ic_default_bg_color">#33000000</color>
+
   <color name="alpha_05_black">#0D000000</color>
   <color name="alpha_10_black">#1A000000</color>
   <color name="alpha_15_black">#26000000</color>
@@ -68,7 +70,9 @@
   <color name="transparent">#00000000</color>
   <color name="half_transparent">#8f000000</color>
   <color name="common_bg_color">#efefef</color>
-
+  <color name="windowBackground">#fff</color>
+  <color name="colorTitleColor">#444</color>
+  <color name="colorDivider">#aaa</color>
 
   <!-- background -->
   <color name="bg">#FFF5F5F5</color>
@@ -89,15 +93,20 @@
   <color name="text_black_grey">#3e3e3e</color>
   <color name="text_grey">#6e6e6e</color>
   <color name="text_light_grey">#9e9e9e</color>
+  <color name="text_dark_white">#e0e0e0</color>
+  <color name="text_white">#FFFFFF</color>
   <color name="text_yellow">#FEE94E</color>
   <color name="text_blue">#35b7f3</color>
   <color name="text_red_color">#F44336</color>
 
   <!-- divider -->
   <color name="divider_color">#c7c7c7</color>
+  <color name="common_divider_color">#b5b5b6</color>
 
   <!--spots_progress_color-->
   <color name="spot_progress_color">#ff5722</color>
   <color name="red_d3">#f14e46</color>
   <color name="red_d5">#df4841</color>
+  <color name="red_d8">#af0000</color>
+  <color name="red_d9">#8b0000</color>
 </resources>

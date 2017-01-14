@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.koterwong.androidlibs.R;
+import me.koterwong.androidlibs.base.BaseActivity;
 import me.koterwong.androidlibs.ui.adapter.RvMultiAdapoter;
-import me.koterwong.base.BaseAppCompatActivity;
 import me.koterwong.common.LogKw;
 import me.koterwong.di.component.AppComponent;
 import me.koterwong.statusbartint.StatusBarCompat;
@@ -26,7 +26,7 @@ import me.koterwong.widget.recyclerview.wrapper.LoadingMoreWrapper;
 /**
  * Created by Koterwong on 2016/9/29 11:17
  */
-public class RvActivity extends BaseAppCompatActivity {
+public class RvActivity extends BaseActivity {
   private final List<String> mDatas = new ArrayList<String>();
 
   {

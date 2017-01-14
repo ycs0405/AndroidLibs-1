@@ -11,10 +11,10 @@ import com.tbruyelle.rxpermissions.RxPermissions;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import me.koterwong.api.ServiceManager;
 import me.koterwong.di.module.AppModule;
 import me.koterwong.di.module.ClientModule;
 import me.koterwong.di.module.ServiceModule;
+import me.koterwong.net.ServiceManager;
 import okhttp3.OkHttpClient;
 
 /**
@@ -29,12 +29,9 @@ import okhttp3.OkHttpClient;
 @Singleton
 @Component(modules = {AppModule.class, ClientModule.class, ServiceModule.class})
 public interface AppComponent {
-
-  Application getAppContect();
-
-  ServiceManager serviceManager();
-
   RxPermissions rxPermissions();
 
   OkHttpClient okHttpClient();
+
+  ServiceManager serviceManager();
 }

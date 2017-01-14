@@ -22,6 +22,10 @@ public class BottomDialogActivity extends BaseActivity {
     return R.layout.activity_bottom_dialog;
   }
 
+  @Override protected void setupTitle() {
+
+  }
+
   @Override protected void injectComponent(AppComponent appComponent) {
 
   }

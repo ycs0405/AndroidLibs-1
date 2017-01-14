@@ -4,9 +4,8 @@
  */
 package me.koterwong.androidlibs.ui.activity.nvpsample;
 
-import me.koterwong.api.ServiceManager;
 import me.koterwong.mvp.BaseModel;
-import me.koterwong.rx.RxSchedulersHelper;
+import me.koterwong.net.ServiceManager;
 import rx.Observable;
 
 /**
@@ -19,7 +18,7 @@ public class MvpSampleModel extends BaseModel {
   }
 
   public Observable<String> loadData() {
-    return mServiceManager.getApiService().getBaiduData().compose(RxSchedulersHelper.<String>io_main());
+    return null;
   }
 
 }

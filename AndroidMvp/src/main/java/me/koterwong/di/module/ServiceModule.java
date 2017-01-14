@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import me.koterwong.api.ApiService;
+import me.koterwong.net.ServiceManager;
 import retrofit2.Retrofit;
 
 /**
@@ -17,16 +17,8 @@ import retrofit2.Retrofit;
  * 管理接口Api实例
  */
 @Module
-@Singleton
 public class ServiceModule {
-
-  /**
-   * 提供ApiService，如果需要其他的ApiService，同样使用该方法提供出去，并将该ApiService加入到ServiceManager的构造函数。
-   *
-   * @param retrofit Retrofit对象在ClientModule中有提供
-   * @return apiService ，可以请求网络
-   */
-  @Singleton @Provides ApiService provideApiService(Retrofit retrofit) {
-    return retrofit.create(ApiService.class);
+  @Provides @Singleton public ServiceManager providerServiceManager(Retrofit retrofit) {
+    return new ServiceManager(retrofit);
   }
 }

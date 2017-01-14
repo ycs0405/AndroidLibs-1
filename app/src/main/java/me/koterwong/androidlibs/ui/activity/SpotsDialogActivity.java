@@ -3,11 +3,11 @@ package me.koterwong.androidlibs.ui.activity;
 import android.view.View;
 
 import me.koterwong.androidlibs.R;
-import me.koterwong.base.BaseAppCompatActivity;
+import me.koterwong.androidlibs.base.BaseActivity;
 import me.koterwong.di.component.AppComponent;
 import me.koterwong.widget.dialog.spotsdialog.SpotsDialog;
 
-public class SpotsDialogActivity extends BaseAppCompatActivity implements View.OnClickListener {
+public class SpotsDialogActivity extends BaseActivity implements View.OnClickListener {
 
   @Override protected int getLayoutId() {
     return R.layout.activity_spots_dialog;

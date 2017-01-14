@@ -4,7 +4,7 @@
  */
 package me.koterwong.mvp;
 
-import me.koterwong.api.ServiceManager;
+import me.koterwong.net.ServiceManager;
 
 /**
  * Created by Koterwong on 2016/9/20 14:28

@@ -4,6 +4,8 @@
  */
 package me.koterwong.bean;
 
+import com.google.gson.annotations.SerializedName;
+
 import me.koterwong.net.ApiErrorCode;
 
 /**
@@ -13,6 +15,7 @@ import me.koterwong.net.ApiErrorCode;
  */
 public class Response<T> {
   private int code;
+  @SerializedName("message")
   private String msg;
   private T data;
 

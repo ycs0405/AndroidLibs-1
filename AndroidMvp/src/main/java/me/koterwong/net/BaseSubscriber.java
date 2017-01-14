@@ -15,7 +15,7 @@ import rx.Subscriber;
  *
  * 自定义Subscriber，封装通用操作
  */
-public abstract class  BaseSubscriber<T> extends Subscriber<Response<T>> {
+public abstract class BaseSubscriber<T> extends Subscriber<Response<T>> {
 
   /**
    * 服务端返回错误数据，code != ApiErrorCode.SUCCESS_CODE 的返回
@@ -65,7 +65,8 @@ public abstract class  BaseSubscriber<T> extends Subscriber<Response<T>> {
 
   @Override public void onNext(Response<T> response) {
     if (response.isOk()) {
-      _onNext(response.getData());
+      if (response.getData() != null)
+        _onNext(response.getData());
     } else {
       _onApiError(new ApiErrorException(response.getCode(), response.getMsg()));
     }

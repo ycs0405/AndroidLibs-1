@@ -18,4 +18,8 @@ public abstract class BaseActivity<P extends BasePresenter,D extends ViewDataBin
   @Override protected void setStatusBar() {
     StatusBarCompat.setColor(this, getResources().getColor(R.color.colorPrimaryDark));
   }
+
+  @Override protected void setupTitle() {
+
+  }
 }

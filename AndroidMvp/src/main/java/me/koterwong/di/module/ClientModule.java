@@ -10,8 +10,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import me.koterwong.api.GlobeHttpHandler;
-import me.koterwong.api.RequestInterceptor;
+import me.koterwong.net.GlobeHttpHandler;
+import me.koterwong.net.RequestInterceptor;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;

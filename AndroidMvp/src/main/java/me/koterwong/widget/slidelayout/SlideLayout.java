@@ -6,7 +6,6 @@ package me.koterwong.widget.slidelayout;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.drawable.StateListDrawable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -27,7 +26,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import me.koterwong.R;
-import me.koterwong.common.LogKw;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -43,14 +41,14 @@ import rx.schedulers.Schedulers;
  * 使用方法，直接在布局文件中声明。然后使用如下方式绑定图片。
  *
  * mSlideLayout
- *    .bind(mimg)
- *    .setPagerTransform(new ZoomInTransformer())
- *    .withListener(new SlideLayout.SlideItemClick() {
+ * .bind(mimg)
+ * .setPagerTransform(new ZoomInTransformer())
+ * .withListener(new SlideLayout.SlideItemClick() {
  *
- *      @Override public void onSlideItemClick(int position) {
- *          Toast.makeText(mAppContext, "" + position, Toast.LENGTH_SHORT).show();
- *    }
- *    });
+ * @Override public void onSlideItemClick(int position) {
+ * Toast.makeText(mAppContext, "" + position, Toast.LENGTH_SHORT).show();
+ * }
+ * });
  */
 public class SlideLayout extends FrameLayout implements ViewPager.OnPageChangeListener {
   private static final String TAG = SlideLayout.class.getSimpleName();
@@ -104,13 +102,13 @@ public class SlideLayout extends FrameLayout implements ViewPager.OnPageChangeLi
     mIndicatorMargin = (int) ta.getDimension(R.styleable.SlideLayout_indicator_margin, mIndicatorMargin);
     mScaleType = (ta.getInt(R.styleable.SlideLayout_scaleType, 6) == 1 ? ImageView.ScaleType.CENTER_CROP : ImageView.ScaleType.FIT_XY);
     mIndicatorGravity = ((ta.getInt(R.styleable.SlideLayout_IndicatorGravity, 1) == 2 ? INDICATOR_RIGHT : INDICATOR_CENTER));
-    mIndicatorDrawable = ta.getResourceId(R.styleable.SlideLayout_bg_selected, R.drawable.selector_slide_layout_indcitor);
+//    mIndicatorDrawable = ta.getResourceId(R.styleable.SlideLayout_bg_selected, R.drawable.selector_slide_layout_indcitor);
 
-    if (getResources().getDrawable(mIndicatorDrawable) != null && getResources().getDrawable(mIndicatorDrawable) instanceof StateListDrawable) {
-      LogKw.e("Failed to load attribute bg_selected. it's must be a StateListDrawable and used normal enable state");
-    } else {
+//    if (getResources().getDrawable(mIndicatorDrawable) != null && getResources().getDrawable(mIndicatorDrawable) instanceof StateListDrawable) {
+//      LogKw.e("Failed to load attribute bg_selected. it's must be a StateListDrawable and used normal enable state");
+//    } else {
       mIndicatorDrawable = R.drawable.selector_slide_layout_indcitor;
-    }
+//    }
 
     ta.recycle();
   }
@@ -152,7 +150,6 @@ public class SlideLayout extends FrameLayout implements ViewPager.OnPageChangeLi
 
     addIndicator();
     bingListener();
-    start();
 
     if (mAutoPlayAble) {
       int zeroItem = Integer.MAX_VALUE / 2 - (Integer.MAX_VALUE / 2) % mImageViews.size();
@@ -259,6 +256,10 @@ public class SlideLayout extends FrameLayout implements ViewPager.OnPageChangeLi
       return;
     }
 
+    if (mSubscription != null && !mSubscription.isUnsubscribed()) {
+      mSubscription.unsubscribe();
+    }
+
     mSubscription = Observable.interval(DelayTime, TimeUnit.SECONDS)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
@@ -271,6 +272,10 @@ public class SlideLayout extends FrameLayout implements ViewPager.OnPageChangeLi
   }
 
   public void stop() {
+    if (mImageViews.size() <= 0) {
+      return;
+    }
+
     if (!mSubscription.isUnsubscribed()) {
       mSubscription.unsubscribe();
     }

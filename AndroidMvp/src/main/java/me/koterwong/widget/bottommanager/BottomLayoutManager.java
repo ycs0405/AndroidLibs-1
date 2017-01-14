@@ -9,12 +9,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.LinearLayout;
-
-import me.koterwong.R;
 
 /**
  * Created by Koterwong on 2017/1/4 14:51
@@ -34,20 +31,24 @@ public class BottomLayoutManager {
   private int mSelectPosition;         //当前选中的位置
   private int mLastSelectPosition;     //上一次选中的位置
   private TabItemClickListener mTabItemClickListener;
+  private OnItemClickListener mOnItemClickListener;
 
   /**
-   * @param context      context对象
-   * @param bottomLayout 布局文件中的linearLayout对象
+   * @param context         context对象
+   * @param bottomLayout    布局文件中的linearLayout对象
+   * @param containerViewId 要添加Fragment的layout
+   * @param selectColor     tab选中时字体的颜色
+   * @param unSelectColor   tab未选中时字体的颜色
    */
-  public BottomLayoutManager(Context context, LinearLayout bottomLayout) {
+  public BottomLayoutManager(Context context, LinearLayout bottomLayout,int containerViewId, int selectColor, int unSelectColor) {
     mFragments = new SparseArray<>();
     mHomeTabItems = new SparseArray<>();
     mContext = context;
     mBottomLayout = bottomLayout;
-    mContainerViewId = mBottomLayout.getId();
+    mContainerViewId = containerViewId;
     mFragmentManager = ((FragmentActivity) (context)).getSupportFragmentManager();
-    mSelectColor = ContextCompat.getColor(context, R.color.text_red_color);
-    mUnSelectColor = ContextCompat.getColor(context, R.color.text_light_grey);
+    mSelectColor = selectColor;
+    mUnSelectColor = unSelectColor;
     mTabItemClickListener = new TabItemClickListener();
   }
 
@@ -71,11 +72,11 @@ public class BottomLayoutManager {
   public BottomLayoutManager addTabItem(int selectImage, int unSelectImage, String title) {
     HomeTabItem homeTabItem = new HomeTabItem(mContext);
     homeTabItem.setSelectedImageRes(selectImage)
-        .setUnselectedImageRes(unSelectImage)
-        .setTitle(title);
+        .setUnSelectedImageRes(unSelectImage)
+        .setTitleText(title);
     homeTabItem.setTag(mHomeTabItems.size());
     homeTabItem.setOnClickListener(mTabItemClickListener);
-    mBottomLayout.addView(homeTabItem);
+    mBottomLayout.addView(homeTabItem, mHomeTabItems.size());
     mBottomLayout.invalidate();
     mHomeTabItems.put(mHomeTabItems.size(), homeTabItem);
     return this;
@@ -93,6 +94,7 @@ public class BottomLayoutManager {
 
     HomeTabItem homeTabItem = mHomeTabItems.get(position);
     setUpItemChange(homeTabItem, position);
+
     return this;
   }
 
@@ -100,44 +102,56 @@ public class BottomLayoutManager {
   /**
    * 设置底部标签图片的尺寸
    *
-   * @param itemSize  dpValue
+   * @param itemSize dpValue
    */
-  public void setTabImageSize(int itemSize) {
+  public BottomLayoutManager setTabImageSize(int itemSize) {
     for (int i = 0; i < mHomeTabItems.size(); i++) {
       HomeTabItem item = mHomeTabItems.get(i);
       item.setSelectImageSize(itemSize);
     }
+    return this;
+  }
+
+  /**
+   * 设置条目的点击事件
+   *
+   * @param onItemClickListener onItemClickListener
+   */
+  public BottomLayoutManager setOnItemClickListener(OnItemClickListener onItemClickListener) {
+    this.mOnItemClickListener = onItemClickListener;
+    return this;
   }
 
   private void setUpItemChange(HomeTabItem homeTabItem, int position) {
-    resetTab(homeTabItem);
+    resetTab();
+
+    homeTabItem.getSelectedImage().setVisibility(View.VISIBLE);
+    homeTabItem.getUnselectedImage().setVisibility(View.GONE);
+    setTextColor(homeTabItem, true);
 
     mLastSelectPosition = mSelectPosition;
     Fragment fragment = mFragments.get(position);
     FragmentTransaction ft = mFragmentManager.beginTransaction();
     getCurrentFragment().onPause();
+
     if (fragment.isAdded()) {
       fragment.onResume();
     } else {
       ft.add(mContainerViewId, fragment);
     }
 
-    showCurrentItem(position);
+    showCurrentItem(ft, position);
     ft.commitAllowingStateLoss();
   }
 
-  private void showCurrentItem(int position) {
+  private void showCurrentItem(FragmentTransaction ft, int position) {
     for (int i = 0; i < mFragments.size(); i++) {
       Fragment fragment = mFragments.get(i);
-      FragmentTransaction ft = mFragmentManager.beginTransaction();
-
       if (position == i) {
         ft.show(fragment);
       } else {
         ft.hide(fragment);
       }
-
-      ft.commitAllowingStateLoss();
     }
     mSelectPosition = position;
   }
@@ -146,31 +160,35 @@ public class BottomLayoutManager {
     return mFragments.get(mLastSelectPosition);
   }
 
-  private void resetTab(HomeTabItem homeTabItem) {
+  private void resetTab() {
     for (int i = 0; i < mHomeTabItems.size(); i++) {
       HomeTabItem tabItem = mHomeTabItems.get(i);
       tabItem.getSelectedImage().setVisibility(View.GONE);
       tabItem.getUnselectedImage().setVisibility(View.VISIBLE);
       setTextColor(tabItem, false);
     }
-
-    homeTabItem.getSelectedImage().setVisibility(View.VISIBLE);
-    homeTabItem.getUnselectedImage().setVisibility(View.GONE);
-    setTextColor(homeTabItem, true);
   }
 
   private void setTextColor(HomeTabItem tabItem, boolean isSelect) {
     tabItem.getTitleTextView().setTextColor(isSelect ? mSelectColor : mUnSelectColor);
   }
 
-  private  class TabItemClickListener implements View.OnClickListener{
+  public interface OnItemClickListener {
+    void onItemClick(int position);
+  }
+
+  private class TabItemClickListener implements View.OnClickListener {
 
     @Override public void onClick(View view) {
       int position = (int) view.getTag();
       if (position == mSelectPosition) {
-        //点击位置是当前的item
-        return;
+        return;//点击位置是当前的item
       }
+
+      if (mOnItemClickListener != null) {
+        mOnItemClickListener.onItemClick(position);
+      }
+
       setCurrentItem(position);
     }
   }

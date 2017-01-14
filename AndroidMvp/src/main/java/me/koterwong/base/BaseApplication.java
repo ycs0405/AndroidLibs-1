@@ -13,11 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.squareup.leakcanary.LeakCanary;
 
-import org.eclipse.equinox.app.IApplication;
-
 import java.util.LinkedList;
 
-import me.koterwong.api.GlobeHttpHandler;
 import me.koterwong.common.BuildConfig;
 import me.koterwong.common.CrashHandler;
 import me.koterwong.common.LogKw;
@@ -26,12 +23,15 @@ import me.koterwong.di.component.DaggerAppComponent;
 import me.koterwong.di.module.AppModule;
 import me.koterwong.di.module.ClientModule;
 import me.koterwong.di.module.ServiceModule;
-import me.koterwong.jpush.JPushUtil;
+import me.koterwong.net.GlobeHttpHandler;
+import me.koterwong.utils.SPUtils;
+import me.koterwong.utils.Utils;
 import okhttp3.HttpUrl;
 
-public abstract class BaseApplication extends Application implements IApplication {
+public abstract class BaseApplication extends Application {
   protected final String TAG = this.getClass().getSimpleName();
   protected static BaseApplication mApplication;
+  private SPUtils mSpUtils;
 
   private static LinkedList<AppCompatActivity> mActivities = new LinkedList<>();
   private AppComponent mAppComponent;
@@ -51,8 +51,10 @@ public abstract class BaseApplication extends Application implements IApplicatio
     initDagger2();   //初始化Dagger2 需要组件
 
     LogKw.setDebug(BuildConfig.LOG_DEBUG);  // init log
-    JPushUtil.initJPush(this, true);  //init jPush
+//    JPushUtil.initJPush(this, true);  //init jPush
     CrashHandler.get().init(getApplicationContext()); //init CrashHandler
+
+    Utils.init(this);
   }
 
   private void initDagger2() {
@@ -71,11 +73,26 @@ public abstract class BaseApplication extends Application implements IApplicatio
     return mAppComponent;
   }
 
-   public void addActivity(AppCompatActivity activity) {
+  public SPUtils getSpUtils() {
+    if (mSpUtils == null) {
+      mSpUtils = new SPUtils("config");
+    }
+    return mSpUtils;
+  }
+
+  public boolean isLogin() {
+    return "true".equals(getSpUtils().getString("isLogin"));
+  }
+
+  public void setLogin(boolean isLogin) {
+    getSpUtils().putString("isLogin", String.valueOf(isLogin));
+  }
+
+  public void addActivity(AppCompatActivity activity) {
     mActivities.add(activity);
   }
 
-   public void removeActivity(AppCompatActivity activity) {
+  public void removeActivity(AppCompatActivity activity) {
     mActivities.remove(activity);
   }
 
@@ -93,7 +110,7 @@ public abstract class BaseApplication extends Application implements IApplicatio
     return null;
   }
 
- public AppCompatActivity getCurActivity() {
+  public AppCompatActivity getCurActivity() {
     return mActivities.get(mActivities.size() - 1);
   }
 

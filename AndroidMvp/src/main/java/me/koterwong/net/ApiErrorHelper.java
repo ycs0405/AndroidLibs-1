@@ -12,6 +12,7 @@ import java.io.IOException;
 import me.koterwong.R;
 import me.koterwong.base.BaseApplication;
 import me.koterwong.common.LogKw;
+import me.koterwong.widget.TipsToast;
 import retrofit2.adapter.rxjava.HttpException;
 
 /**
@@ -21,12 +22,13 @@ public class ApiErrorHelper {
   private static Context sContext = BaseApplication.get();
 
   public static void handleCommonError(Throwable e) {
+    e.printStackTrace();
     if (e instanceof HttpException) {
-      Toast.makeText(sContext, sContext.getString(R.string.service_error), Toast.LENGTH_SHORT).show();
+      TipsToast.makeText(sContext, sContext.getString(R.string.service_error), Toast.LENGTH_SHORT).show();
     } else if (e instanceof IOException) {
-      Toast.makeText(sContext, sContext.getString(R.string.connect_error), Toast.LENGTH_SHORT).show();
+      TipsToast.makeText(sContext, sContext.getString(R.string.connect_error), Toast.LENGTH_SHORT).show();
     } else {
-      Toast.makeText(sContext, sContext.getString(R.string.unknown_exception), Toast.LENGTH_SHORT).show();
+//      TipsToast.makeText(sContext, sContext.getString(R.string.unknown_exception), Toast.LENGTH_SHORT).show();
     }
   }
 

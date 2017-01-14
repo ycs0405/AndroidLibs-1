@@ -37,7 +37,6 @@ android {
 dependencies {
   compile fileTree(include: ['*.jar'], dir: 'libs')
   testCompile 'junit:junit:4.12'
-
   compile rootProject.ext.dependencies["multidex"]
   compile rootProject.ext.dependencies["appcompat-v7"]
   compile rootProject.ext.dependencies["design"]
@@ -47,6 +46,7 @@ dependencies {
   compile rootProject.ext.dependencies["recyclerview-v7"]
   compile rootProject.ext.dependencies["glide"]
   compile rootProject.ext.dependencies["nineoldandroids"]
+  compile rootProject.ext.dependencies["photoview"]
   compile rootProject.ext.dependencies["gson"]
   compile rootProject.ext.dependencies["retrofit"]
   compile rootProject.ext.dependencies["retrofit-converter-gson"]
@@ -58,12 +58,13 @@ dependencies {
   compile rootProject.ext.dependencies["rxpermissions"]
   compile rootProject.ext.dependencies["dagger2"]
   compile rootProject.ext.dependencies["dagger2-apt-compiler"]
+
+
   debugCompile rootProject.ext.dependencies["canary-debug"]
   releaseCompile rootProject.ext.dependencies["canary-release"]
   testCompile rootProject.ext.dependencies["canary-release"]
-
   compile project(':AndroidStatusBarUtil')
-
   compile files('libs/umeng-analytics-v6.0.1.jar')
   compile files('libs/jpush-android-2.1.9.jar')
+  compile project(':AndroidSpringView')
 }

@@ -13,6 +13,8 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/kwmap/kwmap.iml" filepath="$PROJECT_DIR$/kwmap/kwmap.iml" />
       <module fileurl="file://$PROJECT_DIR$/kwshare/kwshare.iml" filepath="$PROJECT_DIR$/kwshare/kwshare.iml" />
+      <module fileurl="file://$PROJECT_DIR$/meituan/meituan.iml" filepath="$PROJECT_DIR$/meituan/meituan.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pthtest/pthtest.iml" filepath="$PROJECT_DIR$/pthtest/pthtest.iml" />
       <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />
     </modules>
   </component>

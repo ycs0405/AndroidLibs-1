@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.koterwong.androidlibs.R;
+import me.koterwong.androidlibs.base.BaseActivity;
 import me.koterwong.androidlibs.ui.activity.nvpsample.MvpSampleActivity;
-import me.koterwong.base.BaseAppCompatActivity;
 import me.koterwong.di.component.AppComponent;
 import me.koterwong.widget.listview.CommonAdapter;
 import me.koterwong.widget.listview.ViewHolder;
 
 
-public class MainActivity extends BaseAppCompatActivity {
+public class MainActivity extends BaseActivity {
   private List<String> mDatas = new ArrayList<>();
 
   {

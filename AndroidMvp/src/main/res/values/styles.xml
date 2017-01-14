@@ -26,6 +26,13 @@
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
   </style>
 
+  <style name="CenterDialog" parent="android:Theme.DeviceDefault.Dialog">
+    <item name="android:windowTitleStyle">@null</item>
+    <item name="android:windowBackground">@color/transparent</item>
+    <item name="android:colorBackgroundCacheHint">@null</item>
+    <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+  </style>
+
   <style name="BottomDialogAnim" parent="android:Animation">
     <item name="android:windowEnterAnimation">@anim/slide_in_from_bottom</item>
     <item name="android:windowExitAnimation">@anim/slide_out_to_bottom</item>
@@ -40,6 +47,12 @@
   <style name="common_gray_line">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">1px</item>
-    <item name="android:background">#ccc</item>
+    <item name="android:background">@color/common_divider_color</item>
+  </style>
+
+  <!--  PopWindow的动画 -->
+  <style name="mypopwindow_anim_style">
+    <item name="android:windowEnterAnimation">@anim/slide_in_from_bottom</item>
+    <item name="android:windowExitAnimation">@anim/slide_out_to_bottom</item>
   </style>
 </resources>

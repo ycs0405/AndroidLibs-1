@@ -10,15 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.koterwong.androidlibs.R;
+import me.koterwong.androidlibs.base.BaseActivity;
 import me.koterwong.androidlibs.ui.adapter.LvMultiAdaoter;
-import me.koterwong.base.BaseAppCompatActivity;
 import me.koterwong.di.component.AppComponent;
 import me.koterwong.statusbartint.StatusBarCompat;
 
 /**
  * Created by Koterwong on 2016/9/29 10:41
  */
-public class LVActivity extends BaseAppCompatActivity {
+public class LVActivity extends BaseActivity {
   private final List<String> mDatas = new ArrayList<String>();
 
   {

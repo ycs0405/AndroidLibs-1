@@ -21,10 +21,6 @@ public class BasePresenter<M extends BaseModel, V extends BaseContract.View> imp
   protected M mModel;
   protected V mView;
 
-  public BasePresenter()   {
-    onStart();
-  }
-
   public BasePresenter(V view) {
     this.mView = view;
     onStart();

@@ -32,10 +32,6 @@ android {
     javaMaxHeapSize "4g"
   }
 
-  packagingOptions {
-    exclude 'META-INF/services/javax.annotation.processing.Processor' // butterknife
-  }
-
   productFlavors {
 //    wandoujia {
 //      manifestPlaceholders = [GRADLE_CHANNEL_VALUE: "wandoujia"]

@@ -19,8 +19,7 @@ import me.koterwong.androiddatabinding.adapter.base.DynamicListAdapter;
 /**
  * Created by Koterwong on 2016/11/27 08:56
  */
-public abstract class BindingBaseAdapter<T, D extends ViewDataBinding>
-    extends DynamicListAdapter<T> {
+public abstract class BindingBaseAdapter<T, D extends ViewDataBinding> extends DynamicListAdapter<T> {
   private D mDatabing;
 
   protected int mLayoutId;

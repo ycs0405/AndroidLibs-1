@@ -43,6 +43,16 @@ public class IntentHandler {
     return "";
   }
 
+  public <T> T getParcelable(String name) {
+    if (null != mActivity.getIntent()) {
+      T value = mActivity.getIntent().getParcelableExtra(name);
+      if (value != null) {
+        return value;
+      }
+    }
+    return null;
+  }
+
   public boolean getBoolean(String name) {
     if (null != mActivity.getIntent()) {
       boolean value = mActivity.getIntent().getBooleanExtra(name, false);

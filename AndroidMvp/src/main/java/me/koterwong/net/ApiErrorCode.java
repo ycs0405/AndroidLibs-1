@@ -11,7 +11,7 @@ package me.koterwong.net;
  */
 public interface ApiErrorCode {
   /** 返回结果成功 */
-  int SUCCESS_CODE = 0;
+  int SUCCESS_CODE = 200;
   /** 无网络连接 */
   int ERROR_NO_INTERNET = 11;
   /** 客户端错误 */

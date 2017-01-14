@@ -5,9 +5,9 @@
 package me.koterwong.androidlibs.base;
 
 import me.koterwong.androidlibs.R;
-import me.koterwong.api.ApiService;
-import me.koterwong.api.GlobeHttpHandler;
+import me.koterwong.androidlibs.api.ApiService;
 import me.koterwong.base.BaseApplication;
+import me.koterwong.net.GlobeHttpHandler;
 import me.koterwong.share.KwShareInterface;
 import me.koterwong.share.ShareKey;
 import me.koterwong.widget.stateview.StateViewMgr;
