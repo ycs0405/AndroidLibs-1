@@ -23,9 +23,9 @@ import me.koterwong.R;
  *
  * custom base bottom dialog,which instance of DialogFragment。
  *
- * SnowDialog：不要被我的名字吓坏。
+ * CustomDialog：不要被我的名字吓坏。
  */
-public abstract class BaseSnowDialog extends DialogFragment {
+public abstract class BaseCustomDialog extends DialogFragment {
   protected final String mTag = this.getClass().getSimpleName();
   protected static final float DEFAULT_DIM = 0.2f;
 

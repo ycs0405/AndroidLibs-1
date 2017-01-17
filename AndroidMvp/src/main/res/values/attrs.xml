@@ -85,6 +85,14 @@
     <attr name="animDuration" format="integer" />
   </declare-styleable>
 
+  <declare-styleable name="RoundImageView">
+    <attr name="borderRadius" format="dimension"  />
+    <attr name="imgType">
+      <enum name="circle" value="0" />
+      <enum name="round" value="1" />
+    </attr>
+  </declare-styleable>
+
   <!--NineGridView-->
   <declare-styleable name="NineGridView">
     <attr name="ngv_singleImageSize" format="dimension"/>

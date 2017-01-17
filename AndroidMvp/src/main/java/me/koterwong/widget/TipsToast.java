@@ -13,10 +13,10 @@ import android.widget.Toast;
 
 import me.koterwong.R;
 
+import static android.R.attr.maxWidth;
+
 
 public class TipsToast extends Toast {
-
-  private static int maxWidth;
 
   public TipsToast(Context context) {
     super(context);
@@ -28,7 +28,7 @@ public class TipsToast extends Toast {
     LayoutInflater inflate = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     View v = inflate.inflate(R.layout.toast_view_tips, null);
     TextView tv = (TextView) v.findViewById(R.id.tips_msg);
-    maxWidth = (int) (180 * context.getResources().getDisplayMetrics().density);
+    int maxWidth = (int) (180 * context.getResources().getDisplayMetrics().density);
     autoSetTextViewGravity(tv, text.toString(), maxWidth);
     tv.setText(text);
 
@@ -69,8 +69,7 @@ public class TipsToast extends Toast {
     tv.setText(s);
   }
 
-  private static void autoSetTextViewGravity(TextView textView,
-                                             String content, int maxWidth) {
+  private static void autoSetTextViewGravity(TextView textView, String content, int maxWidth) {
     TextPaint paint = textView.getPaint();
     // 得到使用该paint写上text的时候,像素为多少
     float textLength = paint.measureText(content);

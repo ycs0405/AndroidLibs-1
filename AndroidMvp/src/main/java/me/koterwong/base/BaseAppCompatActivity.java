@@ -139,10 +139,10 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter, D extends V
   ////// 通的View操作 /////////
   //////////////////////////////
   @Override public void showProgressDialog() {
-    if (mSpotsDialog == null) {
-      mSpotsDialog = new SpotsDialog(mContext, getString(R.string.loading_tip));
-    }
-    mSpotsDialog.show();
+      if (mSpotsDialog == null) {
+        mSpotsDialog = new SpotsDialog(mContext, getString(R.string.loading_tip));
+      }
+      mSpotsDialog.show();
   }
 
   @Override public void showProgressDialog(String msg) {

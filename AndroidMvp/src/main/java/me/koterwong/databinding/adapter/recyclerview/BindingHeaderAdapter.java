@@ -5,6 +5,7 @@
 package me.koterwong.databinding.adapter.recyclerview;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.util.SparseArray;
 import android.view.View;
@@ -15,7 +16,7 @@ import java.util.List;
 /**
  * Created by Koterwong on 2017/1/13 14:41
  *
- * 不能用
+ * HeaderView 和 FooterView 必须使用符合DataBinding标准的layout
  */
 public abstract class BindingHeaderAdapter<T, D extends ViewDataBinding>
     extends BindingRvAdapter<T, D> {
@@ -46,6 +47,11 @@ public abstract class BindingHeaderAdapter<T, D extends ViewDataBinding>
   }
 
   @Override public BindingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    if (mHeaderViews.get(viewType) != null) {
+      return new BindingViewHolder<>(DataBindingUtil.bind(mHeaderViews.get(viewType)));
+    } else if (mFooterViews.get(viewType) != null) {
+      return new BindingViewHolder<>(DataBindingUtil.bind(mHeaderViews.get(viewType)));
+    }
     return super.onCreateViewHolder(parent, viewType);
   }
 
@@ -53,6 +59,11 @@ public abstract class BindingHeaderAdapter<T, D extends ViewDataBinding>
     if (isHeaderPosition(position)) {
       return;
     }
+
+    if (isFooterPosition(position)) {
+      return;
+    }
+
     super.onBindViewHolder(holder, position - mHeaderViews.size());
   }
 

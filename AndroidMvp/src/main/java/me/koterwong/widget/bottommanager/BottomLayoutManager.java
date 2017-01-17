@@ -122,6 +122,10 @@ public class BottomLayoutManager {
     return this;
   }
 
+  public SparseArray<Fragment> getFragments() {
+    return mFragments;
+  }
+
   private void setUpItemChange(HomeTabItem homeTabItem, int position) {
     resetTab();
 

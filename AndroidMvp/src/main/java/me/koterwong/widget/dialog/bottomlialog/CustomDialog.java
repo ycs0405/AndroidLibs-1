@@ -24,9 +24,8 @@ import android.view.View;
  *        });
  * dialog.show();
  *
- * SnowDialog。不要被我的名字吓坏。
  */
-public class SnowDialog extends BaseSnowDialog {
+public class CustomDialog extends BaseCustomDialog {
   private static final String KEY_LAYOUT_RES = "bottom_layout_res";
   private static final String KEY_HEIGHT = "bottom_height";
   private static final String KEY_DIM = "bottom_dim";
@@ -44,8 +43,8 @@ public class SnowDialog extends BaseSnowDialog {
     void bindView(View rootView);
   }
 
-  public static SnowDialog create(FragmentManager manager) {
-    SnowDialog dialog = new SnowDialog();
+  public static CustomDialog create(FragmentManager manager) {
+    CustomDialog dialog = new CustomDialog();
     dialog.setFragmentManager(manager);
     return dialog;
   }
@@ -78,12 +77,12 @@ public class SnowDialog extends BaseSnowDialog {
     return mLayoutRes;
   }
 
-  private SnowDialog setFragmentManager(FragmentManager manager) {
+  private CustomDialog setFragmentManager(FragmentManager manager) {
     mFragmentManager = manager;
     return this;
   }
 
-  public SnowDialog setViewListener(ViewListener listener) {
+  public CustomDialog setViewListener(ViewListener listener) {
     mViewListener = listener;
     return this;
   }
@@ -94,22 +93,22 @@ public class SnowDialog extends BaseSnowDialog {
    * @param layoutRes
    * @return
    */
-  public SnowDialog setLayoutRes(@LayoutRes int layoutRes) {
+  public CustomDialog setLayoutRes(@LayoutRes int layoutRes) {
     mLayoutRes = layoutRes;
     return this;
   }
 
-  public SnowDialog setCancelOutside(boolean cancel) {
+  public CustomDialog setCancelOutside(boolean cancel) {
     mIsCancelOutside = cancel;
     return this;
   }
 
-  public SnowDialog setDimAmount(float dim) {
+  public CustomDialog setDimAmount(float dim) {
     mDimAmount = dim;
     return this;
   }
 
-  public SnowDialog setHeight(int heightPx) {
+  public CustomDialog setHeight(int heightPx) {
     mHeight = heightPx;
     return this;
   }
@@ -131,7 +130,7 @@ public class SnowDialog extends BaseSnowDialog {
    *
    * @return
    */
-  public SnowDialog show() {
+  public CustomDialog show() {
     show(mFragmentManager);
     return this;
   }

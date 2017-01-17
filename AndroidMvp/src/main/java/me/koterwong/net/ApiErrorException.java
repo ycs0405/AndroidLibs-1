@@ -11,7 +11,7 @@ package me.koterwong.net;
  *
  * 用于描述所有的不成功情况，定义ApiException。
  */
-public class ApiErrorException extends RuntimeException {
+public class ApiErrorException extends Exception {
   private int errorCode;
 
   public ApiErrorException(int code, String msg) {

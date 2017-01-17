@@ -20,7 +20,7 @@ public abstract class DynamicListAdapter<T> extends BaseAdapter implements Dynam
   }
 
   @Override public int getCount() {
-    return mDatas.size();
+    return mDatas == null ? 0 : mDatas.size();
   }
 
   @Override public long getItemId(int position) {

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import javax.inject.Inject;
 
+import me.koterwong.R;
 import me.koterwong.mvp.BaseContract;
 import me.koterwong.utils.IntentHandler;
 import me.koterwong.widget.TipsToast;
@@ -92,15 +93,23 @@ public abstract class BaseAppSupportFragment1<D extends ViewDataBinding> extends
 
 
   @Override public void showProgressDialog() {
-
+    if (mSpotsDialog == null) {
+      mSpotsDialog = new SpotsDialog(mActivity, getString(R.string.loading_tip));
+    }
+    mSpotsDialog.show();
   }
 
   @Override public void showProgressDialog(String msg) {
-
+    if (mSpotsDialog == null) {
+      mSpotsDialog = new SpotsDialog(mActivity, msg);
+    }
+    mSpotsDialog.show();
   }
 
   @Override public void dismissProgressDialog() {
-
+    if (mSpotsDialog != null) {
+      mSpotsDialog.dismiss();
+    }
   }
 
   @Override public void showToast(String msg) {

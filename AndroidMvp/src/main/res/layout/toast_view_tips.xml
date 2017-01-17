@@ -8,14 +8,16 @@
 
   <!-- 撑开布局 -->
   <View
-      android:layout_width="120dp"
-      android:layout_height="50dp"
+      android:layout_width="100dp"
+      android:layout_height="100dp"
       android:layout_centerInParent="true"/>
 
   <LinearLayout
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_centerInParent="true"
+      android:paddingLeft="@dimen/dp_8"
+      android:paddingRight="@dimen/dp_8"
       android:orientation="vertical">
 
     <ImageView
@@ -24,6 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="15.0dip"
+        android:src="@drawable/tips_smile"
         android:gravity="center"/>
 
     <TextView
@@ -34,8 +37,6 @@
         android:gravity="center"
         android:lineSpacingExtra="3.0dip"
         android:maxWidth="180dip"
-        android:layout_marginLeft="@dimen/dp_8"
-        android:layout_marginRight="@dimen/dp_8"
         android:text=""
         android:textColor="#ffffffff"
         android:textSize="14sp"/>

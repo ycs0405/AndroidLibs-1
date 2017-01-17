@@ -7,7 +7,15 @@ package me.koterwong.utils;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.TextUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.RequestBody;
+
+import static android.R.attr.value;
 
 /**
  * Created by Koterwong on 2016/9/29 10:32
@@ -48,6 +56,16 @@ public class IntentHandler {
       T value = mActivity.getIntent().getParcelableExtra(name);
       if (value != null) {
         return value;
+      }
+    }
+    return null;
+  }
+
+  public <T extends Parcelable> ArrayList<T> getParcelableArrayListExtra(String name) {
+    if (null != mActivity.getIntent()) {
+      ArrayList<T> list = mActivity.getIntent().getParcelableArrayListExtra(name);
+      if (null != list) {
+        return list;
       }
     }
     return null;
