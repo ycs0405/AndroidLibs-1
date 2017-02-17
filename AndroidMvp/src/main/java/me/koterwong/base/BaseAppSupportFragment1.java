@@ -4,6 +4,7 @@
  */
 package me.koterwong.base;
 
+import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import javax.inject.Inject;
@@ -123,5 +125,20 @@ public abstract class BaseAppSupportFragment1<D extends ViewDataBinding> extends
 
   @Override public void showSnakeBar(String msg) {
 
+  }
+
+  protected void hideSoftInput(View view) {
+    InputMethodManager inputMethodManager = (InputMethodManager) mActivity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+    if (inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0)) {
+      inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
+    }
+  }
+
+  protected void showSoftInput(View view) {
+    view.setFocusable(true);
+    view.setFocusableInTouchMode(true);
+    view.requestFocus();
+    InputMethodManager imm = (InputMethodManager) mActivity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
   }
 }

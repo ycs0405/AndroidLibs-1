@@ -4,8 +4,6 @@
  */
 package me.koterwong.di.component;
 
-import android.app.Application;
-
 import com.tbruyelle.rxpermissions.RxPermissions;
 
 import javax.inject.Singleton;

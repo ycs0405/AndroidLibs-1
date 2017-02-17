@@ -4,7 +4,9 @@
  */
 package me.koterwong.net;
 
+import okhttp3.Interceptor;
 import okhttp3.Request;
+  import okhttp3.Response;
 
 /**
  * Created by Koterwong on 2016/9/20 15:03
@@ -14,5 +16,5 @@ public interface GlobeHttpHandler {
   Request onHttpRequestBefore(Request request);
 
   /** 响应拦截，对token过期等做相应的处理 */
-  void onHttpResultResponse(String response);
+  Response onHttpResultResponse(String httpResult, Interceptor.Chain chain, Response response);
 }

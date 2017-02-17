@@ -2,7 +2,6 @@
   <string name="app_name">mvp</string>
 
   <string name="select">%1$s/%2$s</string>
-
   <string name="loading_tip">加载中…</string>
   <string name="text_retry">点击重试</string>
   <string name="network_unavailable">你已经处在了没有网络的二次元!</string>

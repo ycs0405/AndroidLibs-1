@@ -12,6 +12,11 @@ android {
     useLibrary 'org.apache.http.legacy'
   }
 
+  sourceSets {
+    main {
+      jniLibs.srcDirs = ['libs']
+    }
+  }
 
   buildTypes {
     release {
@@ -24,5 +29,7 @@ android {
 dependencies {
   compile rootProject.ext.dependencies["appcompat-v7"]
   compile files('libs/alipaySdk-20161129.jar')
-  compile files('libs/libammsdk.jar')
+  compile files('libs/UPPayAssistEx.jar')
+  compile files('libs/UPPayPluginExPro.jar')
+  compile project(':AndroidUMShare')
 }

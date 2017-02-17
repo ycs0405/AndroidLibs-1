@@ -1,85 +1,245 @@
 package me.koterwong.widget;
 
-import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.view.Gravity;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.PopupWindow;
 
-import me.koterwong.R;
-import me.koterwong.utils.SizeUtils;
+public class AddPopWindow {
+  private Context mContext;
+  private int mWidth;
+  private int mHeight;
+  private boolean mIsFocusable = true;
+  private boolean mIsOutside = true;
+  private int mResLayoutId = -1;
+  private View mContentView;
+  private PopupWindow mPopupWindow;
+  private int mAnimationStyle = -1;
 
-public class AddPopWindow extends PopupWindow {
-    private View conentView;
+  private boolean mClippEnable = true;//default is true
+  private boolean mIgnoreCheekPress = false;
+  private int mInputMode = -1;
+  private PopupWindow.OnDismissListener mOnDismissListener;
+  private int mSoftInputMode = -1;
+  private boolean mTouchable = true;//default is ture
+  private View.OnTouchListener mOnTouchListener;
 
-    /**
-     * 初始化一个PopupWindow
-     *
-     * @param context 上下文对象
-     * @param resId   自定义的布局文件
-     */
-    public AddPopWindow(final Activity context, int resId) {
-        //初始化布局加载器
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        conentView = inflater.inflate(resId, null);
-        //获取屏幕的宽和高
-        int h = SizeUtils.getScreenHeight() - SizeUtils.getStatusBarHeight(context);
-        int w = SizeUtils.getScreenWidth();
-        // 设置SelectPicPopupWindow的View
-        this.setContentView(conentView);
-        // 设置SelectPicPopupWindow弹出窗体的宽
-        this.setWidth(w);
-        // 设置SelectPicPopupWindow弹出窗体的高
-        this.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-        // 设置SelectPicPopupWindow弹出窗体可点击
-        this.setFocusable(true);
-        this.setOutsideTouchable(true);
-        //软盘弹出时，显示的效果
-        setSoftInputMode(PopupWindow.INPUT_METHOD_NEEDED);
-        setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        // 刷新状态
-        this.update();
-        // 实例化一个ColorDrawable颜色为透明
-        ColorDrawable dw = new ColorDrawable(0x01000000);
-        // 点back键和其他地方使其消失,设置了这个才能触发OnDismisslistener ，设置其他控件变化等操作
-        this.setBackgroundDrawable(dw);
-        setAnimationStyle(R.style.mypopwindow_anim_style);
-        //this.setAnimationStyle(android.R.style.Animation_Translucent);
-        // 设置SelectPicPopupWindow弹出窗体动画效果
-        //this.setAnimationStyle(R.style.AnimationPreview);
+  private AddPopWindow(Context context) {
+    mContext = context;
+  }
+
+  public int getWidth() {
+    return mWidth;
+  }
+
+  public int getHeight() {
+    return mHeight;
+  }
+
+  /**
+   * @param anchor
+   * @param xOff
+   * @param yOff
+   * @return
+   */
+  public AddPopWindow showAsDropDown(View anchor, int xOff, int yOff) {
+    if (mPopupWindow != null) {
+      mPopupWindow.showAsDropDown(anchor, xOff, yOff);
+    }
+    return this;
+  }
+
+  public AddPopWindow showAsDropDown(View anchor) {
+    if (mPopupWindow != null) {
+      mPopupWindow.showAsDropDown(anchor);
+    }
+    return this;
+  }
+
+  @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+  public AddPopWindow showAsDropDown(View anchor, int xOff, int yOff, int gravity) {
+    if (mPopupWindow != null) {
+      mPopupWindow.showAsDropDown(anchor, xOff, yOff, gravity);
+    }
+    return this;
+  }
+
+
+  /**
+   * 相对于父控件的位置（通过设置Gravity.CENTER，下方Gravity.BOTTOM等 ），可以设置具体位置坐标
+   *
+   * @param parent  父控件
+   * @param gravity
+   * @param x       the popup's x location offset
+   * @param y       the popup's y location offset
+   * @return
+   */
+  public AddPopWindow showAtLocation(View parent, int gravity, int x, int y) {
+    if (mPopupWindow != null) {
+      mPopupWindow.showAtLocation(parent, gravity, x, y);
+    }
+    return this;
+  }
+
+  /**
+   * 添加一些属性设置
+   *
+   * @param popupWindow
+   */
+  private void apply(PopupWindow popupWindow) {
+    popupWindow.setClippingEnabled(mClippEnable);
+    if (mIgnoreCheekPress) {
+      popupWindow.setIgnoreCheekPress();
+    }
+    if (mInputMode != -1) {
+      popupWindow.setInputMethodMode(mInputMode);
+    }
+    if (mSoftInputMode != -1) {
+      popupWindow.setSoftInputMode(mSoftInputMode);
+    }
+    if (mOnDismissListener != null) {
+      popupWindow.setOnDismissListener(mOnDismissListener);
+    }
+    if (mOnTouchListener != null) {
+      popupWindow.setTouchInterceptor(mOnTouchListener);
+    }
+    popupWindow.setTouchable(mTouchable);
+
+
+  }
+
+  private PopupWindow build() {
+
+    if (mContentView == null) {
+      mContentView = LayoutInflater.from(mContext).inflate(mResLayoutId, null);
+    }
+
+    if (mWidth != 0 && mHeight != 0) {
+      mPopupWindow = new PopupWindow(mContentView, mWidth, mHeight);
+    } else {
+      mPopupWindow = new PopupWindow(mContentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    }
+    if (mAnimationStyle != -1) {
+      mPopupWindow.setAnimationStyle(mAnimationStyle);
+    }
+
+    apply(mPopupWindow);//设置一些属性
+
+    mPopupWindow.setFocusable(mIsFocusable);
+    mPopupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    mPopupWindow.setOutsideTouchable(mIsOutside);
+
+    if (mWidth == 0 || mHeight == 0) {
+      mPopupWindow.getContentView().measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+      //如果外面没有设置宽高的情况下，计算宽高并赋值
+      mWidth = mPopupWindow.getContentView().getMeasuredWidth();
+      mHeight = mPopupWindow.getContentView().getMeasuredHeight();
+    }
+
+    mPopupWindow.update();
+    return mPopupWindow;
+  }
+
+  /**
+   * 关闭popWindow
+   */
+  public void dissmiss() {
+    if (mPopupWindow != null) {
+      mPopupWindow.dismiss();
+    }
+  }
+
+  public static class PopupWindowBuilder {
+    private AddPopWindow mAddPopWindow;
+
+    public PopupWindowBuilder(Context context) {
+      mAddPopWindow = new AddPopWindow(context);
+    }
+
+    public PopupWindowBuilder size(int width, int height) {
+      mAddPopWindow.mWidth = width;
+      mAddPopWindow.mHeight = height;
+      return this;
+    }
+
+    public PopupWindowBuilder setFocusable(boolean focusable) {
+      mAddPopWindow.mIsFocusable = focusable;
+      return this;
+    }
+
+    public PopupWindowBuilder setView(int resLayoutId) {
+      mAddPopWindow.mResLayoutId = resLayoutId;
+      mAddPopWindow.mContentView = null;
+      return this;
+    }
+
+    public PopupWindowBuilder setView(View view) {
+      mAddPopWindow.mContentView = view;
+      mAddPopWindow.mResLayoutId = -1;
+      return this;
+    }
+
+    public PopupWindowBuilder setOutsideTouchable(boolean outsideTouchable) {
+      mAddPopWindow.mIsOutside = outsideTouchable;
+      return this;
     }
 
     /**
-     * 获取自定义到PopupWindow中的布局
+     * 设置弹窗动画
      *
+     * @param animationStyle
      * @return
      */
-    public View getWindowRootView() {
-        return conentView;
+    public PopupWindowBuilder setAnimationStyle(int animationStyle) {
+      mAddPopWindow.mAnimationStyle = animationStyle;
+      return this;
     }
 
-    /**
-     * 显示popupWindow
-     * 必须调用这个方法才能显示出来PopupWindow
-     */
-    public void showPopupWindow(View parent) {
-        if (!this.isShowing()) {
-            // 以下拉方式显示popupwindow
-            this.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
-        } else {
-            this.dismiss();
-        }
+    public PopupWindowBuilder setClippingEnable(boolean enable) {
+      mAddPopWindow.mClippEnable = enable;
+      return this;
     }
 
-    /**
-     * 关闭PopupWindow
-     */
-    public void closePopupWindow() {
-        this.dismiss();
+    public PopupWindowBuilder setIgnoreCheekPress(boolean ignoreCheekPress) {
+      mAddPopWindow.mIgnoreCheekPress = ignoreCheekPress;
+      return this;
     }
 
+    public PopupWindowBuilder setInputMethodMode(int mode) {
+      mAddPopWindow.mInputMode = mode;
+      return this;
+    }
+
+    public PopupWindowBuilder setOnDissmissListener(PopupWindow.OnDismissListener onDissmissListener) {
+      mAddPopWindow.mOnDismissListener = onDissmissListener;
+      return this;
+    }
+
+    public PopupWindowBuilder setSoftInputMode(int softInputMode) {
+      mAddPopWindow.mSoftInputMode = softInputMode;
+      return this;
+    }
+
+    public PopupWindowBuilder setTouchable(boolean touchable) {
+      mAddPopWindow.mTouchable = touchable;
+      return this;
+    }
+
+    public PopupWindowBuilder setTouchIntercepter(View.OnTouchListener touchIntercepter) {
+      mAddPopWindow.mOnTouchListener = touchIntercepter;
+      return this;
+    }
+
+    public AddPopWindow create() {
+      //构建PopWindow
+      mAddPopWindow.build();
+      return mAddPopWindow;
+    }
+
+  }
 }

@@ -23,6 +23,7 @@ import me.koterwong.di.component.DaggerAppComponent;
 import me.koterwong.di.module.AppModule;
 import me.koterwong.di.module.ClientModule;
 import me.koterwong.di.module.ServiceModule;
+import me.koterwong.jpush.JPushUtil;
 import me.koterwong.net.GlobeHttpHandler;
 import me.koterwong.utils.SPUtils;
 import me.koterwong.utils.Utils;
@@ -51,7 +52,7 @@ public abstract class BaseApplication extends Application {
     initDagger2();   //初始化Dagger2 需要组件
 
     LogKw.setDebug(BuildConfig.LOG_DEBUG);  // init log
-//    JPushUtil.initJPush(this, true);  //init jPush
+    JPushUtil.initJPush(this, true);  //init jPush
     CrashHandler.get().init(getApplicationContext()); //init CrashHandler
 
     Utils.init(this);

@@ -20,7 +20,7 @@ public class Response<T> {
   private T data;
 
   public boolean isOk() {
-    return code == ApiErrorCode.SUCCESS_CODE;
+    return code == ApiErrorCode.SUCCESS_CODE || code == 1;
   }
 
   public int getCode() {

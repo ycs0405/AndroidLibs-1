@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -18,9 +19,10 @@ import android.widget.TextView;
 import java.util.List;
 
 import me.koterwong.R;
+import me.koterwong.statusbartint.StatusBarCompat;
 import me.koterwong.widget.ninegrid.ImageInfo;
 
-public class ImagePreviewActivity extends Activity implements ViewTreeObserver.OnPreDrawListener {
+public class ImagePreviewActivity extends AppCompatActivity implements ViewTreeObserver.OnPreDrawListener {
 
     public static final String IMAGE_INFO = "IMAGE_INFO";
     public static final String CURRENT_ITEM = "CURRENT_ITEM";
@@ -40,6 +42,8 @@ public class ImagePreviewActivity extends Activity implements ViewTreeObserver.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preview);
+
+        StatusBarCompat.setStatusBarImmersive(this);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
         final TextView tv_pager = (TextView) findViewById(R.id.tv_pager);

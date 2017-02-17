@@ -42,6 +42,7 @@ public class ApiErrorHelper {
       LogKw.e("at handleApiError method ,the arguments is null,please check");
       return;
     }
+    TipsToast.makeText(BaseApplication.get(), apiError.getMessage(), Toast.LENGTH_SHORT).show();
     //ApiException处理
     int code = apiError.getErrorCode();
     switch (code) {

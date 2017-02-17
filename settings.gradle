@@ -1,3 +1,3 @@
-include ':app', ':AndroidMvp', ':kwshare', ':kwmap', ':AndroidStatusBarUtil', ':pthtest',
+include ':app', ':AndroidMvp', ':AndroidUMShare', ':kwmap', ':AndroidStatusBarUtil',
     ':sample', ':AndroidSuperTextView', ':AndroidDatabinding',
     ':AndroidSpringView', ':AndroidPayLib', ':DatabingSample', ':meituan'

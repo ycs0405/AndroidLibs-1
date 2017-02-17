@@ -25,7 +25,7 @@ import me.koterwong.utils.IntentHandler;
 public abstract class BindingBaseAdapter<T, D extends ViewDataBinding> extends DynamicListAdapter<T> {
   private D mDatabing;
 
-  protected int mLayoutId;
+  private int mLayoutId;
   private LayoutInflater mInflater;
   private IntentHandler mIntentHandler;
   private Context mContext;
@@ -40,11 +40,15 @@ public abstract class BindingBaseAdapter<T, D extends ViewDataBinding> extends D
   @Override public View getView(int position, View convertView, ViewGroup parent) {
     if (convertView == null) {
       mDatabing = DataBindingUtil.inflate(mInflater, mLayoutId, parent, false);
+      convertView = mDatabing.getRoot();
+      convertView.setTag(mDatabing);
     } else {
-      mDatabing = DataBindingUtil.bind(convertView);
+      mDatabing = (D) convertView.getTag();
+//      mDatabing = DataBindingUtil.bind(convertView);
     }
     bindingViews(position, mDatas.get(position),mDatabing);
-    return mDatabing.getRoot();
+    return convertView;
+//    return mDatabing.getRoot();
   }
 
   /**

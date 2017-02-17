@@ -100,7 +100,7 @@ public class StateViewMgr {
       //通过onStateViewCreate自定义的EmptyView
       int layoutId = listener.generateEmptyLayoutId();
       if (layoutId != NO_VIEW_ID)
-        stateView.addEmptyView(NO_VIEW_ID);
+        stateView.addEmptyView(layoutId);
       else
         stateView.addEmptyView(listener.generateEmptyView());
     } else {

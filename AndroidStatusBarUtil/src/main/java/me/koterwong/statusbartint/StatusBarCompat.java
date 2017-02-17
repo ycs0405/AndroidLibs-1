@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.v4.widget.DrawerLayout;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 /**
  * Created by Koterwong on 2016/8/10.
@@ -94,20 +96,6 @@ public class StatusBarCompat {
     setRootViewFitWindow(activity);
   }
 
-  /**
-   * 设置沉浸状态栏颜色  5.0以上半透明，5.0以下全透明
-   *
-   * @param activity activity
-   */
-  public static void setStatusBarImmersiveDiff(Activity activity) {
-
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-      return;
-    }
-
-    activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-    setRootViewNotFitWindow(activity);
-  }
 
   /**
    * 设置沉浸式状态栏，让contentView进入状态栏。
@@ -140,6 +128,20 @@ public class StatusBarCompat {
     addTranslucentView(activity, alpha);
   }
 
+  /**
+   * 设置沉浸状态栏颜色  5.0以上半透明，5.0以下全透明
+   *
+   * @param activity activity
+   */
+  public static void setStatusBarImmersiveDiff(Activity activity) {
+
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+      return;
+    }
+
+    activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+    setRootViewNotFitWindow(activity);
+  }
 
   /**
    * 设置状态栏全透明，这种情况状态呈白色。仅仅适用于contentView以图片作为background的时候
@@ -167,6 +169,48 @@ public class StatusBarCompat {
     //添加半透明的view到状态栏
     addTranslucentView(activity, alpha);
   }
+
+  public static void setForDrawerLayout(Activity activity, DrawerLayout drawerLayout, int color) {
+    setForDrawerLayout(activity, drawerLayout, color, 0);
+  }
+
+  public static void setForDrawerLayout(Activity activity, DrawerLayout drawerLayout, int color, int statusBarAlpha) {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+      return;
+    }
+
+    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+      activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+      activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+      activity.getWindow().setStatusBarColor(Color.TRANSPARENT);
+    } else {
+      activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+    }
+    // 生成一个状态栏大小的矩形
+    // 添加 statusBarView 到布局中
+    ViewGroup contentLayout = (ViewGroup) drawerLayout.getChildAt(0);
+    if (contentLayout.getChildCount() > 0 && contentLayout.getChildAt(0) instanceof StatusBarView) {
+      contentLayout.getChildAt(0).setBackgroundColor(calculateStatueBarColor(color, statusBarAlpha));
+    } else {
+      StatusBarView statusBarView = createStatusBarView(activity, color,statusBarAlpha);
+      contentLayout.addView(statusBarView, 0);
+    }
+    // 内容布局不是 LinearLayout 时,设置padding top
+    if (!(contentLayout instanceof LinearLayout) && contentLayout.getChildAt(1) != null) {
+      contentLayout.getChildAt(1)
+          .setPadding(contentLayout.getPaddingLeft(), getStatusBarHeight(activity) + contentLayout.getPaddingTop(),
+              contentLayout.getPaddingRight(), contentLayout.getPaddingBottom());
+    }
+    // 设置属性
+    ViewGroup drawer = (ViewGroup) drawerLayout.getChildAt(1);
+    drawerLayout.setFitsSystemWindows(false);
+    contentLayout.setFitsSystemWindows(false);
+    contentLayout.setClipToPadding(true);
+    drawer.setFitsSystemWindows(false);
+
+    addTranslucentView(activity, statusBarAlpha);
+  }
+
 
   private static void addTranslucentView(Activity activity, int alpha) {
     ViewGroup contentView = (ViewGroup) activity.findViewById(Window.ID_ANDROID_CONTENT);

@@ -319,6 +319,10 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
     }
   }
 
+  public LinearLayout getRightLayout() {
+    return mRightLayout;
+  }
+
   /**
    * Returns the number of actions currently registered with the action bar.
    * @return action count

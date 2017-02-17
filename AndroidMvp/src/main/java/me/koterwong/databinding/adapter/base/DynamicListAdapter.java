@@ -27,7 +27,7 @@ public abstract class DynamicListAdapter<T> extends BaseAdapter implements Dynam
     return position;
   }
 
-  @Override public Object getItem(int position) {
+  @Override public T getItem(int position) {
     return mDatas.get(position);
   }
 

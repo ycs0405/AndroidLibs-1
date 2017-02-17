@@ -25,6 +25,7 @@ import me.koterwong.di.component.AppComponent;
 import me.koterwong.mvp.BaseContract;
 import me.koterwong.statusbartint.StatusBarCompat;
 import me.koterwong.utils.IntentHandler;
+import me.koterwong.utils.KeyboardUtils;
 import me.koterwong.widget.TipsToast;
 import me.koterwong.widget.dialog.spotsdialog.SpotsDialog;
 import rx.Subscription;
@@ -198,6 +199,6 @@ public abstract class BaseAppCompatActivity1<D extends ViewDataBinding> extends 
   }
 
   protected void hideKeyBord() {
-
+    KeyboardUtils.hideSoftInput(this);
   }
 }

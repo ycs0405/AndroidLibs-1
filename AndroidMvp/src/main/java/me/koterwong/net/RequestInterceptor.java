@@ -76,9 +76,7 @@ public class RequestInterceptor implements Interceptor {
           body = ResponseBody.create(mediaType, resp);
 
           if (mHandler != null)//这里可以比客户端提前一步拿到服务器返回的结果,可以做一些操作,比如token超时,重新获取
-            mHandler.onHttpResultResponse(resp);
-
-            return originalResponse.newBuilder().body(body).build();
+            return  mHandler.onHttpResultResponse(resp, chain, originalResponse.newBuilder().body(body).build());
         } else {
           Log.e(HTTP_RESPONSE, "responseBody's content : " + " maybe [file part] , too large too print , ignored!");
         }
